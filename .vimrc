@@ -140,3 +140,8 @@ if !isdirectory(expand("$HOME/.vim/undodir"))
 endif
 set undodir=$HOME/.vim/undodir
 """"""""""""""""""""""""""""
+
+let $LOCALFILE=expand("~/.vimrc_local")
+if filereadable($LOCALFILE)
+  source $LOCALFILE
+endif

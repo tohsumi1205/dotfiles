@@ -15,7 +15,6 @@ alias gitlogone="gitlog --oneline"
 alias ..="cd .."
 alias ..2="cd ../.."
 alias ..3="cd ../../.."
-alias cda="cd ~/atcoder"
 
 # config #
 alias vz="vim ~/.zshrc"
@@ -28,12 +27,10 @@ alias l="ls"
 alias v="vim"
 alias mkdir="mkdir -p"
 
-# Load Homebrew config script
-source $HOME/.brewconfig.zsh
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
 # AtCoder
-alias vacc="vim /Users/tohsumi/Library/Preferences/atcoder-cli-nodejs/template/main.cpp"
 alias check="g++ main.cpp -o main && oj test -c ./main -d ./tests"
 alias accs="acc submit"
+
+if [ -f ~/.zshrc_local ]; then
+  source ~/.zshrc_local
+fi
