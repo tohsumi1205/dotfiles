@@ -10,6 +10,7 @@ alias gcm="git commit -m"
 alias gs="git status"
 alias gitlog="git log --all --graph --decorate"
 alias gitlogone="gitlog --oneline"
+alias ga="git add"
 
 # move #
 alias ..="cd .."
@@ -30,6 +31,10 @@ alias mkdir="mkdir -p"
 # AtCoder
 alias check="g++ main.cpp -o main && oj test -c ./main -d ./tests"
 alias accs="acc submit"
+
+# 42
+alias gcca="gcc -Wall -Wextra -Werror"
+alias norm="norminette"
 
 if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local
