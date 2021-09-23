@@ -27,6 +27,14 @@ alias ls="ls -G"
 alias l="ls"
 alias v="vim"
 alias mkdir="mkdir -p"
+setopt auto_cd
+setopt auto_pushd
+setopt correct
+setopt mark_dirs
+setopt no_beep
+setopt transient_rprompt
+setopt histverify
+export EDITOR=vim
 
 # AtCoder
 alias check="g++ main.cpp -o main && oj test -c ./main -d ./tests"
