@@ -35,6 +35,7 @@ setopt no_beep
 setopt transient_rprompt
 setopt histverify
 export EDITOR=vim
+bindkey -v
 
 # AtCoder
 alias check="g++ main.cpp -o main && oj test -c ./main -d ./tests"
