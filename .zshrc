@@ -11,6 +11,9 @@ alias gs="git status"
 alias gitlog="git log --all --graph --decorate"
 alias gitlogone="gitlog --oneline"
 alias ga="git add"
+alias gc="git checkout"
+alias gb="git branch"
+alias gp="git push"
 
 # move #
 alias ..="cd .."
