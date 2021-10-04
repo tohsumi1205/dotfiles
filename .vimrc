@@ -150,3 +150,7 @@ let $LOCALFILE=expand("~/.vimrc_local")
 if filereadable($LOCALFILE)
   source $LOCALFILE
 endif
+
+" highlight double byte spaces
+hi DoubleByteSpace term=underline ctermbg=blue guibg=darkgray
+match DoubleByteSpace /　/
