@@ -2,7 +2,7 @@ syntax on
 filetype plugin indent on
 set autoindent
 set tabstop=4
-set shiftwidth=2
+set shiftwidth=4
 set backspace=2
 set laststatus=2
 set showcmd
