@@ -120,6 +120,10 @@ Plug 'pbondoer/vim-42header'
 call plug#end()
 """""""""""""
 
+" open new split panes to right and bottom
+set splitbelow
+set splitright
+
 " Colors.
 set background=dark
 colorscheme PaperColor
