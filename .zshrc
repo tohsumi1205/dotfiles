@@ -8,7 +8,7 @@ prompt pure
 # git #
 alias gcm="git commit -m"
 alias gs="git status"
-alias gitlog="git log --all --graph --decorate"
+alias gg="git log --all --graph --decorate --oneline"
 alias gitlogone="gitlog --oneline"
 alias ga="git add"
 alias gc="git checkout"
