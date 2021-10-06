@@ -47,6 +47,7 @@ alias accs="acc submit"
 # 42
 alias gcca="gcc -Wall -Wextra -Werror"
 alias norm="norminette"
+alias header="for f in ./*.c ./*.h ; do vim -c Stdheader'' -c 'wq' $f ; done"
 
 if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local

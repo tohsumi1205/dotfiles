@@ -113,8 +113,8 @@ let g:airline#extensions#default#layout = [
 let g:airline_theme = 'luna'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" indent-guide """"""""""""""""""""""""""""""""""""""""""""""""
-"Plug 'nathanaelkane/vim-indent-guides'
+" 42header """"""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'pbondoer/vim-42header'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#end()
