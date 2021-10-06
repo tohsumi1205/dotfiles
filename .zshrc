@@ -15,11 +15,6 @@ alias gc="git checkout"
 alias gb="git branch"
 alias gp="git push"
 
-# move #
-alias ..="cd .."
-alias ..2="cd ../.."
-alias ..3="cd ../../.."
-
 # config #
 alias vz="vim ~/.zshrc"
 alias sz="source ~/.zshrc"
