@@ -1,0 +1,9 @@
+[user]
+	email = tohsumi@student.42tokyo.jp
+	name = tohsumi
+[color]
+	ui = true
+[alias]
+	graph = log --graph --decorate --oneline --all
+[core]
+	excludesfile = ~/.gitignore
