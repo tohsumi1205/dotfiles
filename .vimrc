@@ -6,6 +6,7 @@ set shiftwidth=4
 set backspace=2
 set laststatus=2
 set showcmd
+set nrformats=
 let mapleader="\<space>"
 set wildmenu wildmode=list:full
 autocmd FileType json syntax match Comment +\/\/.\+$+
