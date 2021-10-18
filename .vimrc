@@ -160,3 +160,5 @@ endif
 " highlight double byte spaces
 hi DoubleByteSpace term=underline ctermbg=blue guibg=darkgray
 match DoubleByteSpace /　/
+
+inoremap <c-]> <esc>A;
