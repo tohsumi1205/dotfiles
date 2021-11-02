@@ -42,7 +42,10 @@ alias accs="acc submit"
 # 42
 alias gcca="gcc -Wall -Wextra -Werror"
 alias norm="norminette"
-alias header="for f in ./*.c ./*.h ; do vim -c Stdheader'' -c 'wq' $f ; done"
+
+function 42header(){
+	for f in ./*.c ./*.h ; do vim -c Stdheader'' -c 'wq' $f ; done
+}
 
 function ide(){
 	tmux split-window -v -p 25
@@ -51,26 +54,26 @@ function ide(){
 
 up()
 {
-    local cdir="$(pwd)"
-    if [[ "${1}" == "" ]]; then
-        cdir="$(dirname "${cdir}")"
-    elif ! [[ "${1}" =~ ^[0-9]+$ ]]; then
-        echo "Error: argument must be a number"
-    elif ! [[ "${1}" -gt "0" ]]; then
-        echo "Error: argument must be positive"
-    else
-        for ((i=0; i<${1}; i++)); do
-            local ncdir="$(dirname "${cdir}")"
-            if [[ "${cdir}" == "${ncdir}" ]]; then
-                break
-            else
-                cdir="${ncdir}"
-            fi
-        done
-    fi
-    cd "${cdir}"
+	local cdir="$(pwd)"
+	if [[ "${1}" == "" ]]; then
+		cdir="$(dirname "${cdir}")"
+	elif ! [[ "${1}" =~ ^[0-9]+$ ]]; then
+		echo "Error: argument must be a number"
+	elif ! [[ "${1}" -gt "0" ]]; then
+		echo "Error: argument must be positive"
+	else
+		for ((i=0; i<${1}; i++)); do
+			local ncdir="$(dirname "${cdir}")"
+			if [[ "${cdir}" == "${ncdir}" ]]; then
+				break
+			else
+				cdir="${ncdir}"
+			fi
+		done
+	fi
+	cd "${cdir}"
 }
 
 if [ -f ~/.zshrc_local ]; then
-  source ~/.zshrc_local
+	source ~/.zshrc_local
 fi
