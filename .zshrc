@@ -13,7 +13,6 @@ alias gitlogone="gitlog --oneline"
 alias ga="git add"
 alias gc="git checkout"
 alias gb="git branch"
-alias gp="git push"
 
 # config #
 alias vz="vim ~/.zshrc"
@@ -42,7 +41,6 @@ alias accs="acc submit"
 # 42
 alias gcca="gcc -Wall -Wextra -Werror"
 alias norm="norminette"
-
 function 42header(){
 	for f in ./*.c ./*.h ; do vim -c Stdheader'' -c 'wq' $f ; done
 }
