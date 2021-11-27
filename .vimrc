@@ -35,9 +35,9 @@ silent! helptags ALL
 
 " Use vim-plug.
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin()
@@ -46,9 +46,9 @@ Plug 'tpope/vim-commentary'
 " Nerdtree """"""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'scrooloose/nerdtree'
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") &&
-    \ b:NERDTree.isTabTree()) | q | endif
+			\ b:NERDTree.isTabTree()) | q | endif
 let NERDTreeShowHidden=1
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Winresizer """"""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'simeji/winresizer'
@@ -59,15 +59,15 @@ let g:winresizer_horiz_resize=1
 " coc.nvim """"""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ coc#refresh()
+			\ pumvisible() ? "\<C-n>" :
+			\ <SID>check_back_space() ? "\<TAB>" :
+			\ coc#refresh()
 inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 inoremap <silent><expr> <CR> pumvisible() ? "<C-y>" : "<CR>"
@@ -109,15 +109,16 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 let g:airline_section_c = '%t'
 let g:airline#extensions#default#layout = [
-        \ ['a','b','c'],
-        \ ['x']
-        \]
+			\ ['a','b','c'],
+			\ ['x']
+			\]
 let g:airline_theme = 'luna'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " 42header """"""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'pbondoer/vim-42header'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 call plug#end()
 """""""""""""
@@ -147,18 +148,19 @@ noremap <S-l> $
 " Enable undo for all files.
 set undofile
 if !isdirectory(expand("$HOME/.vim/undodir"))
-  call mkdir(expand("$HOME/.vim/undodir"), "p")
+	call mkdir(expand("$HOME/.vim/undodir"), "p")
 endif
 set undodir=$HOME/.vim/undodir
 """"""""""""""""""""""""""""
-
-let $LOCALFILE=expand("~/.vimrc_local")
-if filereadable($LOCALFILE)
-  source $LOCALFILE
-endif
 
 " highlight double byte spaces
 hi DoubleByteSpace term=underline ctermbg=blue guibg=darkgray
 match DoubleByteSpace /　/
 
 inoremap <c-]> <esc>A;
+
+let $LOCALFILE=expand("~/.vimrc_local")
+if filereadable($LOCALFILE)
+	source $LOCALFILE
+endif
+
