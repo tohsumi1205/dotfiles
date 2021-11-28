@@ -142,7 +142,7 @@ noremap <c-l> <c-w><c-l>
 " Cursor movement.
 noremap j gj
 noremap k gk
-noremap <S-h> 0
+noremap <S-h> ^
 noremap <S-l> $
 
 " Enable undo for all files.
