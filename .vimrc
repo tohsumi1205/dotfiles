@@ -140,8 +140,10 @@ noremap <c-l> <c-w><c-l>
 """""""""""""""""""
 
 " Cursor movement.
-noremap j gj
-noremap k gk
+noremap <expr> j (v:count == 0 ? 'gj' : 'j')
+noremap <expr> k (v:count == 0 ? 'gk' : 'k')
+noremap <Up> gk
+noremap <Down> gj
 noremap <S-h> ^
 noremap <S-l> $
 
