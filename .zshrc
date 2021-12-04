@@ -7,7 +7,7 @@ function check_last_exit_status() {
 	local EXIT_STATUS=$?
 	if [[ $EXIT_STATUS -ne 0 ]]; then
 		local RPROMPT=' '
-		RPROMPT+="[ $EXIT_STATUS ]"
+		RPROMPT+="[ %F{red}$EXIT_STATUS%f ]"
 		echo "$RPROMPT"
 	fi
 }
