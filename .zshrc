@@ -3,6 +3,17 @@ fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit
 prompt pure
 
+function check_last_exit_status() {
+	local EXIT_STATUS=$?
+	if [[ $EXIT_STATUS -ne 0 ]]; then
+		local RPROMPT=' '
+		RPROMPT+="[ $EXIT_STATUS ]"
+		echo "$RPROMPT"
+	fi
+}
+
+RPROMPT='$(check_last_exit_status)'
+
 ### aliases ###
 
 # git #
@@ -29,7 +40,6 @@ setopt auto_pushd
 setopt correct
 setopt mark_dirs
 setopt no_beep
-setopt transient_rprompt
 setopt histverify
 export EDITOR=vim
 bindkey -v
