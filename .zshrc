@@ -48,13 +48,6 @@ bindkey -v
 alias check="g++ main.cpp -o main && oj test -c ./main -d ./tests"
 alias accs="acc submit"
 
-# 42
-alias gcca="gcc -Wall -Wextra -Werror"
-alias norm="norminette"
-function 42header(){
-	for f in ./*.c ./*.h ; do vim -c Stdheader'' -c 'wq' $f ; done
-}
-
 function ide(){
 	tmux split-window -v -p 25
 	tmux split-window -h -p 50
