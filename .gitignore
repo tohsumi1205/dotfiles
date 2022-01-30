@@ -1,9 +1,13 @@
 a.out
 *.o
 *.a
-*.swp
 subject.pdf
 
 !.gitignore
 !Makefile
 .vscode
+
+
+
+*.swp
+Session.vim
