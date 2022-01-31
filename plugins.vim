@@ -17,6 +17,7 @@ call minpac#add('k-tanaka/minpac', {'type': 'opt'})
 
 call minpac#add('tpope/vim-unimpaired')
 call minpac#add('junegunn/fzf')
+call minpac#add('junegunn/fzf.vim')
 call minpac#add('tpope/vim-obsession')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('tpope/vim-projectionist')
