@@ -14,6 +14,15 @@ function check_last_exit_status() {
 
 RPROMPT='$(check_last_exit_status)'
 
+# history
+HISTSIZE=1048576
+HISTFILE="$HOME/.zsh_history"
+SAVEHIST=$HISTSIZE
+setopt appendhistory
+setopt incappendhistory
+setopt extendedhistory
+
+
 ### aliases ###
 
 # git #
