@@ -1,168 +1,123 @@
-syntax on
-filetype plugin indent on
-set autoindent
-set tabstop=4
+nnoremap <C-p> :<C-u>FZF<CR>
+let g:mapleader=","
+
+source ~/dotfiles/plugins.vim
+
+"---------------------
+" Basic editing config
+"---------------------
+syntax on					" turn on syntax highlighting
+filetype plugin indent on	" detection:ON  plugin:ON  indent:ON
+set autoindent				" copy indent from current line when starting a new line
+set tabstop=4				" <Tab> size is equal to 4 spaces
 set shiftwidth=4
 set backspace=2
 set laststatus=2
-set showcmd
-set nrformats=
-let mapleader="\<space>"
-set wildmenu wildmode=list:full
-autocmd FileType json syntax match Comment +\/\/.\+$+
-set autochdir
-
-" Searching words.
-set hlsearch
-set incsearch
-set ignorecase
-""""""""""""""""""
-
-" Folding.
-set foldmethod=indent
-autocmd BufRead * normal zR
-""""""""""
-
-" Show line numbers.
-set number
-set relativenumber
-""""""""""""""""""""
-
-" For plugins.
-packloadall
-silent! helptags ALL
-""""""""""""""
-
-" Use vim-plug.
-if empty(glob('~/.vim/autoload/plug.vim'))
-	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-call plug#begin()
-Plug 'tpope/vim-commentary'
-
-" Nerdtree """"""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'scrooloose/nerdtree'
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") &&
-			\ b:NERDTree.isTabTree()) | q | endif
-let NERDTreeShowHidden=1
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Winresizer """"""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'simeji/winresizer'
-let g:winresizer_vert_resize=2
-let g:winresizer_horiz_resize=1
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" coc.nvim """"""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-inoremap <silent><expr> <TAB>
-			\ pumvisible() ? "\<C-n>" :
-			\ <SID>check_back_space() ? "\<TAB>" :
-			\ coc#refresh()
-inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-	let col = col('.') - 1
-	return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-inoremap <silent><expr> <CR> pumvisible() ? "<C-y>" : "<CR>"
-set completeopt=menuone,noinsert
-inoremap <expr><C-n> pumvisible() ? "\<Down>" : "\<C-n>"
-inoremap <expr><C-p> pumvisible() ? "\<Up>" : "\<C-p>"
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" vim-fugitive """""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'tpope/vim-fugitive'
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" vim-tmux-navigator """""""""""""""""""""""""""""""""""""""""""
-Plug 'christoomey/vim-tmux-navigator'
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Syntastic """"""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'vim-syntastic/syntastic'
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_cpp_checkers = ['avrgcc']
-let g:syntastic_c_checkers = ['avrgcc']
-let g:syntastic_python_checkers = ['pylint']
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" colorscheme """"""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'flazz/vim-colorschemes'
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" vim-airline """"""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-let g:airline_section_c = '%t'
-let g:airline#extensions#default#layout = [
-			\ ['a','b','c'],
-			\ ['x']
-			\]
-let g:airline_theme = 'luna'
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" 42header """"""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'pbondoer/vim-42header'
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set shortmess+=I		" avoid the intro message on startup
+set nu					" number lines
+set rnu					" relative line numbering
+set incsearch			" incremental search (as string is being typed so far)
+set hls					" highlight search
+set showmatch			" show matching braces when text indicator is over them
+set matchtime=1			" match 0.1 sec
+set splitbelow			" open new split panes to bottom
+set splitright			" and right, which feels more natural
+set display=lastline	" show long line text
+set nofoldenable		" disable folding
+set noerrorbells visualbell t_vb= " disable audible bell
+set history=10000		" more history
+set hidden				" allow auto-hiding of edited buffers 
+set nojoinspaces		" inserting one spaces between sentences
 
 
-call plug#end()
-"""""""""""""
+" " highlight current line, but only in active window
+" augroup CursorLineOnlyInActiveWindow
+"     autocmd!
+"     autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+"     autocmd WinLeave * setlocal nocursorline
+" augroup END
 
-" open new split panes to right and bottom
-set splitbelow
-set splitright
 
-" Colors.
-set background=dark
-colorscheme PaperColor
-"""""""""
 
 " Windows movement.
 noremap <c-h> <c-w><c-h>
 noremap <c-j> <c-w><c-j>
 noremap <c-k> <c-w><c-k>
 noremap <c-l> <c-w><c-l>
-"""""""""""""""""""
+
+" increment setting
+nnoremap + <C-a>
+nnoremap - <C-x>
 
 " Cursor movement.
 noremap <expr> j (v:count == 0 ? 'gj' : 'j')
 noremap <expr> k (v:count == 0 ? 'gk' : 'k')
 noremap <Up> gk
 noremap <Down> gj
-noremap <S-h> ^
-noremap <S-l> $
 
-" Enable undo for all files.
+" key binding
+nnoremap Y y$ " consistent with D for dd, C cc
+
+"--------------
+" Plugin config
+"--------------
+
+" For JavaScript files, use `eslint` (and only eslint)
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\ }
+
+" Mappings in the style of unimpaired-next
+nmap <silent> [W <Plug>(ale_first)
+nmap <silent> [w <Plug>(ale_previous)
+nmap <silent> ]w <Plug>(ale_next)
+nmap <silent> ]W <Plug>(ale_last)
+
+" ALE run linters only when invoked it by hand.
+nnoremap <Leader>l :ALELint<CR>
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_save = 0
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_filetype_changed = 0
+
+
+" configure Grepper
+let g:grepper       = {}
+let g:grepper.tools = ['rg', 'grep']
+
+" Search for the current word
+nnoremap <Leader>* :Grepper -cword -noprompt<CR>
+
+" Search for the current selection
+nmap gs <plug>(GrepperOperator)
+xmap gs <plug>(GrepperOperator)
+
+
+" set undodir and undo file
 set undofile
-if !isdirectory(expand("$HOME/.vim/undodir"))
-	call mkdir(expand("$HOME/.vim/undodir"), "p")
+if !has('nvim')
+	if !isdirectory(expand("$HOME/.vim/undodir"))
+		call mkdir(expand("$HOME/.vim/undodir"), "p")
+	endif
 endif
 set undodir=$HOME/.vim/undodir
-""""""""""""""""""""""""""""
 
-" highlight double byte spaces
-hi DoubleByteSpace term=underline ctermbg=blue guibg=darkgray
-match DoubleByteSpace /　/
+augroup configure_projects
+  autocmd!
+  autocmd User ProjectionistActivate call s:linters()
+augroup END
 
-inoremap <c-]> <esc>A;
+function! s:linters() abort
+  let l:linters = projectionist#query('linters')
+  if len(l:linters) > 0
+    let b:ale_linters = {&filetype: l:linters[0][1]}
+  endif
+endfunction
+
+
+
 
 let $LOCALFILE=expand("~/.vimrc_local")
 if filereadable($LOCALFILE)
 	source $LOCALFILE
 endif
-
