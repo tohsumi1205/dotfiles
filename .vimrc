@@ -11,7 +11,7 @@ filetype plugin indent on	" detection:ON  plugin:ON  indent:ON
 set autoindent				" copy indent from current line when starting a new line
 set tabstop=4				" <Tab> size is equal to 4 spaces
 set shiftwidth=4
-set backspace=2
+set backspace=indent,eol,start " allow backspacing over everything
 set laststatus=2
 set shortmess+=I		" avoid the intro message on startup
 set nu					" number lines
@@ -57,6 +57,11 @@ noremap <Down> gj
 
 " key binding
 nnoremap Y y$ " consistent with D for dd, C cc
+
+" unbind key
+map <C-a> <Nop>
+map <C-x> <Nop>
+nmap Q <Nop>
 
 "--------------
 " Plugin config
