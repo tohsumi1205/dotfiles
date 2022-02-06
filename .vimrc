@@ -30,12 +30,12 @@ set hidden				" allow auto-hiding of edited buffers
 set nojoinspaces		" inserting one spaces between sentences
 
 
-" " highlight current line, but only in active window
-" augroup CursorLineOnlyInActiveWindow
-"     autocmd!
-"     autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-"     autocmd WinLeave * setlocal nocursorline
-" augroup END
+" highlight current line, but only in active window
+augroup CursorLineOnlyInActiveWindow
+    autocmd!
+    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    autocmd WinLeave * setlocal nocursorline
+augroup END
 
 
 
@@ -119,7 +119,9 @@ function! s:linters() abort
   endif
 endfunction
 
-
+" gruvbox
+autocmd vimenter * ++nested colorscheme gruvbox
+set bg=dark
 
 
 let $LOCALFILE=expand("~/.vimrc_local")

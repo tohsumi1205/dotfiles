@@ -35,6 +35,7 @@ alias gc="git checkout"
 alias gb="git branch"
 
 # config #
+export TERM=xterm-256color
 alias vz="vim ~/.zshrc"
 alias sz="source ~/.zshrc"
 alias vv="vim ~/.vimrc"
