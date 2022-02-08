@@ -3,7 +3,6 @@ fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit
 prompt pure
 
-
 # history
 HISTSIZE=1048576
 HISTFILE="$HOME/.zsh_history"
@@ -41,8 +40,19 @@ setopt correct
 setopt mark_dirs
 setopt no_beep
 setopt histverify
+
+# use vim-like line editing in zsh
 export EDITOR=vim
 bindkey -v
+# Undo
+bindkey -a 'u' undo
+bindkey -a '^R' redo
+# Backspace
+bindkey '^?' backward-delete-char
+bindkey '^H' backward-delete-char
+# movement
+bindkey -a 'gg' beginning-of-line
+bindkey -a 'G' end-of-line
 
 # AtCoder
 alias check="g++ main.cpp -o main && oj test -c ./main -d ./tests"
