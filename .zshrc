@@ -29,10 +29,12 @@ alias vz="vim ~/.zshrc"
 alias sz="source ~/.zshrc"
 alias vv="vim ~/.vimrc"
 alias vt="vim ~/.tmux.conf"
-alias ll="ls -alF"
+alias ll="ls -ahlF"
 alias ls="ls -G"
 alias l="ls"
-alias v="vim"
+alias cp="cp -i"
+alias mv="mv -i"
+alias cdgr='cd "$(git root)"'
 alias mkdir="mkdir -p"
 setopt auto_cd
 setopt auto_pushd
@@ -61,6 +63,10 @@ alias accs="acc submit"
 function ide(){
 	tmux split-window -v -p 25
 	tmux split-window -h -p 50
+}
+
+mcd() {
+	mkdir "${1}" && cd "{$1}"
 }
 
 up()
