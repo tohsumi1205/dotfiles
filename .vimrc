@@ -119,6 +119,12 @@ function! s:linters() abort
   endif
 endfunction
 
+" vim-lsp
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
+
 " gruvbox
 autocmd vimenter * ++nested colorscheme gruvbox
 set bg=dark
