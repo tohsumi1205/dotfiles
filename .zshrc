@@ -3,17 +3,6 @@ fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit
 prompt pure
 
-function check_last_exit_status() {
-	local EXIT_STATUS=$?
-	if [[ $EXIT_STATUS -ne 0 ]]; then
-		local RPROMPT=' '
-		RPROMPT+="[ %F{red}$EXIT_STATUS%f ]"
-		echo "$RPROMPT"
-	fi
-}
-
-RPROMPT='$(check_last_exit_status)'
-
 # history
 HISTSIZE=1048576
 HISTFILE="$HOME/.zsh_history"
