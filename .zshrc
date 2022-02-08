@@ -3,6 +3,7 @@ fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit
 prompt pure
 
+
 # history
 HISTSIZE=1048576
 HISTFILE="$HOME/.zsh_history"
@@ -78,3 +79,5 @@ up()
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local
 
 
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
