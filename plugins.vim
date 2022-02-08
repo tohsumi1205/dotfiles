@@ -27,6 +27,9 @@ call minpac#add('mhinz/vim-grepper')
 call minpac#add('janko-m/vim-test')
 call minpac#add('tpope/vim-obsession')
 call minpac#add('sgur/vim-editorconfig')
+call minpac#add('kien/rainbow_parentheses.vim')
+call minpac#add('mhinz/vim-startify')
+call minpac#add('jiangmiao/auto-pairs')
 
 call minpac#add('christoomey/vim-tmux-navigator')
 

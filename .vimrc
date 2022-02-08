@@ -28,6 +28,7 @@ set noerrorbells visualbell t_vb= " disable audible bell
 set history=10000		" more history
 set hidden				" allow auto-hiding of edited buffers 
 set nojoinspaces		" inserting one spaces between sentences
+set list lcs=tab:\¦\    " set list to see tabs
 
 
 " highlight current line, but only in active window
@@ -129,6 +130,11 @@ let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
 autocmd vimenter * ++nested colorscheme gruvbox
 set bg=dark
 
+" kien/rainbow_parentheses.vim
+autocmd VimEnter * RainbowParenthesesToggle
+autocmd Syntax * RainbowParenthesesLoadRound
+autocmd Syntax * RainbowParenthesesLoadSquare
+autocmd Syntax * RainbowParenthesesLoadBraces
 
 let $LOCALFILE=expand("~/.vimrc_local")
 if filereadable($LOCALFILE)
