@@ -60,7 +60,7 @@ bindkey -a 'G' end-of-line
 alias check="g++ main.cpp -o main && oj test -c ./main -d ./tests"
 alias accs="acc submit"
 
-function ide(){
+ide(){
 	tmux split-window -v -p 25
 	tmux split-window -h -p 50
 }
