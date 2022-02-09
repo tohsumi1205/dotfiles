@@ -1,0 +1,6 @@
+[submodule ".zsh/plugins/purepure"]
+	path = .zsh/plugins/purepure
+	url = https://github.com/sindresorhus/pure.git
+[submodule ".zsh/plugins/pure"]
+	path = .zsh/plugins/pure
+	url = https://github.com/sindresorhus/pure.git
