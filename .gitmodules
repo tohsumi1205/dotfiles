@@ -1,6 +1,9 @@
-[submodule ".zsh/plugins/purepure"]
-	path = .zsh/plugins/purepure
-	url = https://github.com/sindresorhus/pure.git
 [submodule ".zsh/plugins/pure"]
 	path = .zsh/plugins/pure
 	url = https://github.com/sindresorhus/pure.git
+[submodule ".zsh/plugins/zsh-syntax-highlighting"]
+	path = .zsh/plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule ".zsh/plugins/zsh-autosuggestions"]
+	path = .zsh/plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
