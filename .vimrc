@@ -19,6 +19,7 @@ set rnu					" relative line numbering
 set incsearch			" incremental search (as string is being typed so far)
 set hls					" highlight search
 set showmatch			" show matching braces when text indicator is over them
+set ignorecase			" case of normal letters is ignored
 set matchtime=1			" match 0.1 sec
 set splitbelow			" open new split panes to bottom
 set splitright			" and right, which feels more natural
@@ -31,7 +32,7 @@ set nojoinspaces		" inserting one spaces between sentences
 set list lcs=tab:\¦\    " set list to see tabs
 
 
-" tab config {{{
+""" tab config {{{
 
 " Anywhere SID.
 function! s:SID_PREFIX()
@@ -58,9 +59,24 @@ function! s:my_tabline()  "{{{
   return s
 endfunction "}}}
 let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
-set showtabline=2 " show tabline anytime
 
-" The prefix key.
+" tabline pop up only when there are more than one tab {{{
+function! s:tabstatus()
+	if tabpagenr('$') > 1
+		set showtabline=2
+	else
+		set showtabline=1
+	endif
+endfunction
+
+augroup tab_status
+	autocmd!
+	autocmd TabLeave,TabEnter,TabClosed * call s:tabstatus()
+augroup END
+" }}}
+
+" key binds related to tab {{{
+" prefix
 nnoremap    [Tag]   <Nop>
 nmap    t [Tag]
 
@@ -71,6 +87,9 @@ endfor
 
 map <silent> [Tag]c :tablast <bar> tabnew<CR> " create a new tab on the far right
 map <silent> [Tag]x :tabclose<CR> " close tab
+" }}}
+
+""" }}}
 
 " highlight current line, but only in active window
 augroup CursorLineOnlyInActiveWindow
@@ -182,6 +201,12 @@ augroup parenthes
 	autocmd Syntax * RainbowParenthesesLoadSquare
 	autocmd Syntax * RainbowParenthesesLoadBraces
 augroup END
+
+" fzf.vim
+nnoremap <silent> <leader>f :Files<CR>
+nnoremap <silent> <leader>h :History<CR>
+nnoremap <silent> <leader>b :Buffers<CR>
+
 
 let $LOCALFILE=expand("~/.vimrc_local")
 if filereadable($LOCALFILE)
