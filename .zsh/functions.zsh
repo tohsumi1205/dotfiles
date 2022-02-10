@@ -6,7 +6,7 @@ ide(){
 
 # make and chenge directory
 mcd() {
-	mkdir "${1}" && cd "{$1}"
+	mkdir "${1}" && cd "${1}"
 }
 
 # go up (n-th) directory
