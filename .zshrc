@@ -8,6 +8,8 @@ source ~/.zsh/alias.zsh
 
 source ~/.zsh/plugins.zsh
 
+source ~/.zsh/plugins_after.zsh
+
 # fzf config
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
