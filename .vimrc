@@ -128,14 +128,19 @@ inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
 
 " gruvbox
-autocmd vimenter * ++nested colorscheme gruvbox
+augroup color_scheme
+	autocmd!
+	autocmd vimenter * ++nested colorscheme gruvbox
+augroup END
 set bg=dark
 
 " kien/rainbow_parentheses.vim
-autocmd VimEnter * RainbowParenthesesToggle
-autocmd Syntax * RainbowParenthesesLoadRound
-autocmd Syntax * RainbowParenthesesLoadSquare
-autocmd Syntax * RainbowParenthesesLoadBraces
+augroup parenthes
+	autocmd VimEnter * RainbowParenthesesToggle
+	autocmd Syntax * RainbowParenthesesLoadRound
+	autocmd Syntax * RainbowParenthesesLoadSquare
+	autocmd Syntax * RainbowParenthesesLoadBraces
+augroup END
 
 let $LOCALFILE=expand("~/.vimrc_local")
 if filereadable($LOCALFILE)
