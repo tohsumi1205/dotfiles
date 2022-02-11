@@ -1,5 +1,5 @@
 nnoremap <C-p> :<C-u>FZF<CR>
-let g:mapleader=","
+let g:mapleader="\<space>"
 
 source ~/dotfiles/plugins.vim
 
