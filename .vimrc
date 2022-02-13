@@ -39,35 +39,6 @@ augroup CursorLineOnlyInActiveWindow
 	autocmd WinLeave * setlocal nocursorline
 augroup END
 
-"-------------------
-" Misc configuration
-"-------------------
-
-" Windows movement.
-noremap <c-h> <c-w><c-h>
-noremap <c-j> <c-w><c-j>
-noremap <c-k> <c-w><c-k>
-noremap <c-l> <c-w><c-l>
-
-" Cursor movement.
-noremap <expr> j (v:count == 0 ? 'gj' : 'j')
-noremap <expr> k (v:count == 0 ? 'gk' : 'k')
-noremap <Up> gk
-noremap <Down> gj
-
-" increment setting
-nnoremap + <C-a>
-nnoremap - <C-x>
-
-
-" key binding
-nnoremap Y y$ " consistent with D for dd, C cc
-
-" unbind key
-map <C-a> <Nop>
-map <C-x> <Nop>
-nmap Q <Nop>
-
 "------------------
 " tab configuration
 "------------------
@@ -126,6 +97,44 @@ endfor
 map <silent> [Tag]c :tablast <bar> tabnew<CR> " create a new tab on the far right
 map <silent> [Tag]x :tabclose<CR> " close tab
 
+"-------------------
+" Misc configuration
+"-------------------
+
+" Windows movement.
+noremap <c-h> <c-w><c-h>
+noremap <c-j> <c-w><c-j>
+noremap <c-k> <c-w><c-k>
+noremap <c-l> <c-w><c-l>
+
+" Cursor movement.
+noremap <expr> j (v:count == 0 ? 'gj' : 'j')
+noremap <expr> k (v:count == 0 ? 'gk' : 'k')
+noremap <Up> gk
+noremap <Down> gj
+
+" increment setting
+nnoremap + <C-a>
+nnoremap - <C-x>
+
+
+" key binding
+nnoremap Y y$ " consistent with D for dd, C cc
+
+" unbind key
+map <C-a> <Nop>
+map <C-x> <Nop>
+nmap Q <Nop>
+
+" set undodir and undo file
+set undofile
+if !has('nvim')
+	if !isdirectory(expand("$HOME/.vim/undodir"))
+		call mkdir(expand("$HOME/.vim/undodir"), "p")
+	endif
+endif
+set undodir=$HOME/.vim/undodir
+
 "---------------------
 " Plugin configuration
 "---------------------
@@ -162,16 +171,6 @@ nnoremap <Leader>* :Grepper -cword -noprompt<CR>
 nmap gs <plug>(GrepperOperator)
 xmap gs <plug>(GrepperOperator)
 
-
-" set undodir and undo file
-set undofile
-if !has('nvim')
-	if !isdirectory(expand("$HOME/.vim/undodir"))
-		call mkdir(expand("$HOME/.vim/undodir"), "p")
-	endif
-endif
-set undodir=$HOME/.vim/undodir
-
 augroup configure_projects
 	autocmd!
 	autocmd User ProjectionistActivate call s:linters()
@@ -184,33 +183,36 @@ function! s:linters() abort
 	endif
 endfunction
 
-" vim-lsp
+" prabirshrestha/vim-lsp {{{
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
+" }}}
 
-" gruvbox
+" morhetz/gruvbox {{{
 augroup color_scheme
 	autocmd!
 	autocmd vimenter * ++nested colorscheme gruvbox
 augroup END
 set bg=dark
+" }}}
 
-" kien/rainbow_parentheses.vim
+" kien/rainbow_parentheses.vim {{{
 augroup parenthes
 	autocmd VimEnter * RainbowParenthesesToggle
 	autocmd Syntax * RainbowParenthesesLoadRound
 	autocmd Syntax * RainbowParenthesesLoadSquare
 	autocmd Syntax * RainbowParenthesesLoadBraces
 augroup END
+" }}}
 
-" fzf.vim
+" junegunn/fzf.vim {{{
 nnoremap <C-p> :<C-u>FZF<CR>
 nnoremap <silent> <leader>f :Files<CR>
 nnoremap <silent> <leader>h :History<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
-
+" }}}
 
 let $LOCALFILE=expand("~/.vimrc_local")
 if filereadable($LOCALFILE)
