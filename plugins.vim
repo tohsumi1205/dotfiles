@@ -28,6 +28,9 @@ call minpac#add('janko-m/vim-test')
 call minpac#add('sgur/vim-editorconfig')
 call minpac#add('mhinz/vim-startify')
 call minpac#add('jiangmiao/auto-pairs')
+call minpac#add('haya14busa/incsearch.vim')
+call minpac#add('easymotion/vim-easymotion')
+call minpac#add('tpope/vim-surround')
 
 " tmux
 call minpac#add('christoomey/vim-tmux-navigator')
@@ -35,6 +38,7 @@ call minpac#add('christoomey/vim-tmux-navigator')
 " color scheme
 call minpac#add('morhetz/gruvbox')
 call minpac#add('kien/rainbow_parentheses.vim')
+call minpac#add('itchyny/lightline.vim')
 
 " lsp
 call minpac#add('prabirshrestha/vim-lsp')
