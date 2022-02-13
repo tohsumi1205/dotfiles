@@ -1,6 +1,3 @@
-nnoremap <C-p> :<C-u>FZF<CR>
-let g:mapleader="\<space>"
-
 source ~/dotfiles/plugins.vim
 
 "---------------------
@@ -12,16 +9,11 @@ set autoindent				" copy indent from current line when starting a new line
 set tabstop=4				" <Tab> size is equal to 4 spaces
 set shiftwidth=4
 set backspace=indent,eol,start " allow backspacing over everything
-set laststatus=2
+set laststatus=2		" always a status line
 set nu					" number lines
 set rnu					" relative line numbering
-set incsearch			" incremental search (as string is being typed so far)
-set hls					" highlight search
 set showmatch			" show matching braces when text indicator is over them
-set ignorecase			" case of normal letters is ignored
 set matchtime=1			" match 0.1 sec
-set splitbelow			" open new split panes to bottom
-set splitright			" and right, which feels more natural
 set display=lastline	" show long line text
 set nofoldenable		" disable folding
 set noerrorbells visualbell t_vb= " disable audible bell
@@ -30,32 +22,79 @@ set hidden				" allow auto-hiding of edited buffers
 set nojoinspaces		" inserting one spaces between sentences
 set list lcs=tab:\¦\    " set list to see tabs
 
+" window split
+set splitbelow			" open new split panes to bottom
+set splitright			" and right, which feels more natural
 
-""" tab config {{{
+" shearch config
+set ignorecase			" case of normal letters is ignored
+set smartcase			" unless the search pattern contains upper cases
+set incsearch			" incremental search (as string is being typed so far)
+set hlsearch			" highlight search
+
+" highlight current line, but only in active window
+augroup CursorLineOnlyInActiveWindow
+	autocmd!
+	autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+	autocmd WinLeave * setlocal nocursorline
+augroup END
+
+"-------------------
+" Misc configuration
+"-------------------
+
+" Windows movement.
+noremap <c-h> <c-w><c-h>
+noremap <c-j> <c-w><c-j>
+noremap <c-k> <c-w><c-k>
+noremap <c-l> <c-w><c-l>
+
+" Cursor movement.
+noremap <expr> j (v:count == 0 ? 'gj' : 'j')
+noremap <expr> k (v:count == 0 ? 'gk' : 'k')
+noremap <Up> gk
+noremap <Down> gj
+
+" increment setting
+nnoremap + <C-a>
+nnoremap - <C-x>
+
+
+" key binding
+nnoremap Y y$ " consistent with D for dd, C cc
+
+" unbind key
+map <C-a> <Nop>
+map <C-x> <Nop>
+nmap Q <Nop>
+
+"------------------
+" tab configuration
+"------------------
 
 " Anywhere SID.
 function! s:SID_PREFIX()
-  return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
+	return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
 
 " Set tabline.
 function! s:my_tabline()  "{{{
-  let s = ''
-  for i in range(1, tabpagenr('$'))
-    let bufnrs = tabpagebuflist(i)
-    let bufnr = bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
-    let no = i  " display 0-origin tabpagenr.
-    let mod = getbufvar(bufnr, '&modified') ? '!' : ' '
-    let title = fnamemodify(bufname(bufnr), ':t')
-    let title = '[' . title . ']'
-    let s .= '%'.i.'T'
-    let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
-    let s .= no . ':' . title
-    let s .= mod
-    let s .= '%#TabLineFill# '
-  endfor
-  let s .= '%#TabLineFill#%T%=%#TabLine#'
-  return s
+	let s = ''
+	for i in range(1, tabpagenr('$'))
+		let bufnrs = tabpagebuflist(i)
+		let bufnr = bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
+		let no = i  " display 0-origin tabpagenr.
+		let mod = getbufvar(bufnr, '&modified') ? '!' : ' '
+		let title = fnamemodify(bufname(bufnr), ':t')
+		let title = '[' . title . ']'
+		let s .= '%'.i.'T'
+		let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
+		let s .= no . ':' . title
+		let s .= mod
+		let s .= '%#TabLineFill# '
+	endfor
+	let s .= '%#TabLineFill#%T%=%#TabLine#'
+	return s
 endfunction "}}}
 let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
 
@@ -74,63 +113,28 @@ augroup tab_status
 augroup END
 " }}}
 
-" key binds related to tab {{{
+" key binds related to tab
 " prefix
 nnoremap    [Tag]   <Nop>
 nmap    t [Tag]
 
 " jump to n-th tab by t(1..9)
 for n in range(1, 9)
-  execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
+	execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
 endfor
 
 map <silent> [Tag]c :tablast <bar> tabnew<CR> " create a new tab on the far right
 map <silent> [Tag]x :tabclose<CR> " close tab
-" }}}
 
-""" }}}
-
-" highlight current line, but only in active window
-augroup CursorLineOnlyInActiveWindow
-    autocmd!
-    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    autocmd WinLeave * setlocal nocursorline
-augroup END
-
-
-
-" Windows movement.
-noremap <c-h> <c-w><c-h>
-noremap <c-j> <c-w><c-j>
-noremap <c-k> <c-w><c-k>
-noremap <c-l> <c-w><c-l>
-
-" increment setting
-nnoremap + <C-a>
-nnoremap - <C-x>
-
-" Cursor movement.
-noremap <expr> j (v:count == 0 ? 'gj' : 'j')
-noremap <expr> k (v:count == 0 ? 'gk' : 'k')
-noremap <Up> gk
-noremap <Down> gj
-
-" key binding
-nnoremap Y y$ " consistent with D for dd, C cc
-
-" unbind key
-map <C-a> <Nop>
-map <C-x> <Nop>
-nmap Q <Nop>
-
-"--------------
-" Plugin config
-"--------------
+"---------------------
+" Plugin configuration
+"---------------------
+let g:mapleader="\<space>"
 
 " For JavaScript files, use `eslint` (and only eslint)
 let g:ale_linters = {
-\   'javascript': ['eslint'],
-\ }
+			\   'javascript': ['eslint'],
+			\ }
 
 " Mappings in the style of unimpaired-next
 nmap <silent> [W <Plug>(ale_first)
@@ -169,15 +173,15 @@ endif
 set undodir=$HOME/.vim/undodir
 
 augroup configure_projects
-  autocmd!
-  autocmd User ProjectionistActivate call s:linters()
+	autocmd!
+	autocmd User ProjectionistActivate call s:linters()
 augroup END
 
 function! s:linters() abort
-  let l:linters = projectionist#query('linters')
-  if len(l:linters) > 0
-    let b:ale_linters = {&filetype: l:linters[0][1]}
-  endif
+	let l:linters = projectionist#query('linters')
+	if len(l:linters) > 0
+		let b:ale_linters = {&filetype: l:linters[0][1]}
+	endif
 endfunction
 
 " vim-lsp
@@ -202,6 +206,7 @@ augroup parenthes
 augroup END
 
 " fzf.vim
+nnoremap <C-p> :<C-u>FZF<CR>
 nnoremap <silent> <leader>f :Files<CR>
 nnoremap <silent> <leader>h :History<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
