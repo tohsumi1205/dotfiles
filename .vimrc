@@ -13,7 +13,6 @@ set tabstop=4				" <Tab> size is equal to 4 spaces
 set shiftwidth=4
 set backspace=indent,eol,start " allow backspacing over everything
 set laststatus=2
-set shortmess+=I		" avoid the intro message on startup
 set nu					" number lines
 set rnu					" relative line numbering
 set incsearch			" incremental search (as string is being typed so far)
