@@ -248,6 +248,11 @@ let g:lightline = {
 			\ }
 " }}}
 
+" simeji/winresizer {{{
+let g:winresizer_vert_resize=2
+let g:winresizer_horiz_resize=1
+" }}}
+
 let $LOCALFILE=expand("~/.vimrc_local")
 if filereadable($LOCALFILE)
 	source $LOCALFILE

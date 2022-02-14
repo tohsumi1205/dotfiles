@@ -32,6 +32,7 @@ call minpac#add('haya14busa/incsearch.vim')
 call minpac#add('easymotion/vim-easymotion')
 call minpac#add('tpope/vim-surround')
 call minpac#add('airblade/vim-gitgutter')
+call minpac#add('simeji/winresizer')
 
 " tmux
 call minpac#add('christoomey/vim-tmux-navigator')
