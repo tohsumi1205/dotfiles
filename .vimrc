@@ -94,8 +94,23 @@ for n in range(1, 9)
 	execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
 endfor
 
-map <silent> [Tag]c :tablast <bar> tabnew<CR> " create a new tab on the far right
+map <silent> [Tag]n :tablast <bar> tabnew<CR> " create a new tab on the far right
 map <silent> [Tag]x :tabclose<CR> " close tab
+
+" create new tab with a current open buffer
+nnoremap <silent> tm :<C-u>call <SID>MoveToNewTab()<CR>
+function! s:MoveToNewTab()
+    tab split
+    tabprevious
+
+    if winnr('$') > 1
+        close
+    elseif bufnr('$') > 1
+        buffer #
+    endif
+
+    tabnext
+endfunction
 
 "-------------------
 " Misc configuration
