@@ -33,6 +33,7 @@ call minpac#add('easymotion/vim-easymotion')
 call minpac#add('tpope/vim-surround')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('simeji/winresizer')
+call minpac#add('pbondoer/vim-42header')
 
 " tmux
 call minpac#add('christoomey/vim-tmux-navigator')
