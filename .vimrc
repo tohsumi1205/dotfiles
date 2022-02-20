@@ -23,6 +23,7 @@ set nojoinspaces		" inserting one spaces between sentences
 set list lcs=tab:\¦\    " set list to see tabs
 set wildmenu					" command-line autocompletion on
 set wildmode=list:longest,full	" show all the options
+set keywordprg=:help	" open vim internal help by K command
 
 " window split
 set splitbelow			" open new split panes to bottom
