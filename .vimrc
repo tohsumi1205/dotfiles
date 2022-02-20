@@ -21,6 +21,8 @@ set history=10000		" more history
 set hidden				" allow auto-hiding of edited buffers 
 set nojoinspaces		" inserting one spaces between sentences
 set list lcs=tab:\¦\    " set list to see tabs
+set wildmenu					" command-line autocompletion on
+set wildmode=list:longest,full	" show all the options
 
 " window split
 set splitbelow			" open new split panes to bottom
