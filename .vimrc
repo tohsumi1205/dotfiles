@@ -72,20 +72,8 @@ function! s:my_tabline()  "{{{
 endfunction "}}}
 let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
 
-" tabline pop up only when there are more than one tab {{{
-function! s:tabstatus()
-	if tabpagenr('$') > 1
-		set showtabline=2
-	else
-		set showtabline=1
-	endif
-endfunction
-
-augroup tab_status
-	autocmd!
-	autocmd TabLeave,TabEnter,TabClosed * call s:tabstatus()
-augroup END
-" }}}
+" tabline pop up only when there are more than one tab
+set showtabline=1
 
 " key binds related to tab
 " prefix
