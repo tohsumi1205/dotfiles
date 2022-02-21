@@ -1,8 +1,6 @@
 source ~/dotfiles/plugins.vim
 
-"---------------------
-" Basic editing config
-"---------------------
+" Basic editing config {{{
 syntax on					" turn on syntax highlighting
 filetype plugin indent on	" detection:ON  plugin:ON  indent:ON
 set autoindent				" copy indent from current line when starting a new line
@@ -25,26 +23,28 @@ set wildmenu					" command-line autocompletion on
 set wildmode=list:longest,full	" show all the options
 set keywordprg=:help	" open vim internal help by K command
 
-" window split
+" window split {{{
 set splitbelow			" open new split panes to bottom
 set splitright			" and right, which feels more natural
+" }}}
 
-" shearch config
+" shearch config {{{
 set ignorecase			" case of normal letters is ignored
 set smartcase			" unless the search pattern contains upper cases
 set incsearch			" incremental search (as string is being typed so far)
 set hlsearch			" highlight search
+" }}}
 
-" highlight current line, but only in active window
+" highlight current line, but only in active window {{{
 augroup CursorLineOnlyInActiveWindow
 	autocmd!
 	autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
 	autocmd WinLeave * setlocal nocursorline
 augroup END
+" }}}
+" }}}
 
-"------------------
-" tab configuration
-"------------------
+" tab configuration {{{
 
 " Anywhere SID.
 function! s:SID_PREFIX()
@@ -75,20 +75,21 @@ let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
 " tabline pop up only when there are more than one tab
 set showtabline=1
 
-" key binds related to tab
+" key binds related to tab {{{
 " prefix
 nnoremap    [Tag]   <Nop>
 nmap    t [Tag]
 
-" jump to n-th tab by t(1..9)
+" jump to n-th tab by t(1..9) {{{
 for n in range(1, 9)
 	execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
 endfor
+" }}}
 
 map <silent> [Tag]n :tablast <bar> tabnew<CR> " create a new tab on the far right
 map <silent> [Tag]x :tabclose<CR> " close tab
 
-" create new tab with a current open buffer
+" create new tab with a current open buffer (tm command in normal mode) {{{
 nnoremap <silent> tm :<C-u>call <SID>MoveToNewTab()<CR>
 function! s:MoveToNewTab()
     tab split
@@ -102,43 +103,49 @@ function! s:MoveToNewTab()
 
     tabnext
 endfunction
+" }}}
+" }}}
+" }}}
 
-"-------------------
-" Misc configuration
-"-------------------
+" Misc configuration {{{
 
-" Windows movement.
+" Windows movement. {{{
 noremap <c-h> <c-w><c-h>
 noremap <c-j> <c-w><c-j>
 noremap <c-k> <c-w><c-k>
 noremap <c-l> <c-w><c-l>
+" }}}
 
-" movement between terminal and vim
+" movement between terminal and vim {{{
 tnoremap <c-j> <c-w><c-j>
 tnoremap <c-k> <c-w><c-k>
 tnoremap <c-l> <c-w><c-l>
 tnoremap <c-h> <c-w><c-h>
+" }}}
 
-" Cursor movement.
+" Cursor movement. {{{
 noremap <expr> j (v:count == 0 ? 'gj' : 'j')
 noremap <expr> k (v:count == 0 ? 'gk' : 'k')
 noremap <Up> gk
 noremap <Down> gj
+" }}}
 
-" increment setting
+" increment setting {{{
 nnoremap + <C-a>
 nnoremap - <C-x>
+" }}}
 
-
-" key binding
+" key binding {{{
 nnoremap Y y$ " consistent with D for dd, C cc
+" }}}
 
-" unbind key
+" unbind key {{{
 map <C-a> <Nop>
 map <C-x> <Nop>
 nmap Q <Nop>
+" }}}
 
-" set undodir and undo file
+" set undodir and undo file {{{
 set undofile
 if !has('nvim')
 	if !isdirectory(expand("$HOME/.vim/undodir"))
@@ -146,10 +153,10 @@ if !has('nvim')
 	endif
 endif
 set undodir=$HOME/.vim/undodir
+" }}}
+" }}}
 
-"---------------------
-" Plugin configuration
-"---------------------
+" Plugin configuration {{{
 let g:mapleader="\<space>"
 
 " For JavaScript files, use `eslint` (and only eslint)
@@ -255,7 +262,11 @@ let g:winresizer_vert_resize=2
 let g:winresizer_horiz_resize=1
 " }}}
 
+" }}}
+
 let $LOCALFILE=expand("~/.vimrc_local")
 if filereadable($LOCALFILE)
 	source $LOCALFILE
 endif
+
+" vim: fdm=marker
