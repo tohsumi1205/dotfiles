@@ -35,6 +35,7 @@ call minpac#add('airblade/vim-gitgutter')
 call minpac#add('simeji/winresizer')
 call minpac#add('pbondoer/vim-42header')
 call minpac#add('kana/vim-textobj-entire')
+call minpac#add('kana/vim-textobj-user')
 
 " tmux
 call minpac#add('christoomey/vim-tmux-navigator')
