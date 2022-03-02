@@ -1,10 +1,11 @@
 command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
 command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
 
-" load minpac on demand
+" load minpac on demand {{{
 if !exists('g:loaded_minpac')
   finish
 endif
+" }}}
 
 packadd minpac
 call minpac#init({'verbose': 0})
@@ -33,23 +34,30 @@ call minpac#add('easymotion/vim-easymotion')
 call minpac#add('tpope/vim-surround')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('simeji/winresizer')
-call minpac#add('pbondoer/vim-42header')
 call minpac#add('kana/vim-textobj-entire')
 call minpac#add('kana/vim-textobj-user')
 
-" tmux
+" tmux {{{
 call minpac#add('christoomey/vim-tmux-navigator')
+" }}}
 
-" color scheme
+" color scheme {{{
 call minpac#add('morhetz/gruvbox')
 call minpac#add('kien/rainbow_parentheses.vim')
 call minpac#add('itchyny/lightline.vim')
+" }}}
 
-" lsp
+" lsp {{{
 call minpac#add('prabirshrestha/vim-lsp')
 call minpac#add('mattn/vim-lsp-settings')
 call minpac#add('prabirshrestha/asyncomplete.vim')
 call minpac#add('prabirshrestha/asyncomplete-lsp.vim')
+" }}}
+
+" 42 {{{
+call minpac#add('pbondoer/vim-42header')
+" }}}
 
 silent! helptags ALL
 
+" vim: fdm=marker

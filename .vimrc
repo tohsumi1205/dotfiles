@@ -265,9 +265,11 @@ let g:winresizer_horiz_resize=1
 
 " }}}
 
+" if there is local config, then load it {{{
 let $LOCALFILE=expand("~/.vimrc_local")
 if filereadable($LOCALFILE)
 	source $LOCALFILE
 endif
+" }}}
 
 " vim: fdm=marker
