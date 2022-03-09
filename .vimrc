@@ -23,6 +23,7 @@ set wildmenu					" command-line autocompletion on
 set wildmode=list:longest,full	" show all the options
 set keywordprg=:help	" open vim internal help by K command
 set updatetime=100		" update more frequently
+set modeline
 
 " window split {{{
 set splitbelow			" open new split panes to bottom
@@ -38,9 +39,9 @@ set hlsearch			" highlight search
 
 " highlight current line, but only in active window {{{
 augroup CursorLineOnlyInActiveWindow
-	autocmd!
-	autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-	autocmd WinLeave * setlocal nocursorline
+  autocmd!
+  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  autocmd WinLeave * setlocal nocursorline
 augroup END
 " }}}
 " }}}
@@ -49,27 +50,27 @@ augroup END
 
 " Anywhere SID.
 function! s:SID_PREFIX()
-	return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
+  return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
 
 " Set tabline.
 function! s:my_tabline()  "{{{
-	let s = ''
-	for i in range(1, tabpagenr('$'))
-		let bufnrs = tabpagebuflist(i)
-		let bufnr = bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
-		let no = i  " display 0-origin tabpagenr.
-		let mod = getbufvar(bufnr, '&modified') ? '!' : ' '
-		let title = fnamemodify(bufname(bufnr), ':t')
-		let title = '[' . title . ']'
-		let s .= '%'.i.'T'
-		let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
-		let s .= no . ':' . title
-		let s .= mod
-		let s .= '%#TabLineFill# '
-	endfor
-	let s .= '%#TabLineFill#%T%=%#TabLine#'
-	return s
+  let s = ''
+  for i in range(1, tabpagenr('$'))
+    let bufnrs = tabpagebuflist(i)
+    let bufnr = bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
+    let no = i  " display 0-origin tabpagenr.
+    let mod = getbufvar(bufnr, '&modified') ? '!' : ' '
+    let title = fnamemodify(bufname(bufnr), ':t')
+    let title = '[' . title . ']'
+    let s .= '%'.i.'T'
+    let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
+    let s .= no . ':' . title
+    let s .= mod
+    let s .= '%#TabLineFill# '
+  endfor
+  let s .= '%#TabLineFill#%T%=%#TabLine#'
+  return s
 endfunction "}}}
 let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
 
@@ -83,7 +84,7 @@ nmap    t [Tag]
 
 " jump to n-th tab by t(1..9) {{{
 for n in range(1, 9)
-	execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
+  execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
 endfor
 " }}}
 
@@ -93,16 +94,16 @@ map <silent> [Tag]x :tabclose<CR> " close tab
 " create new tab with a current open buffer (tm command in normal mode) {{{
 nnoremap <silent> tm :<C-u>call <SID>MoveToNewTab()<CR>
 function! s:MoveToNewTab()
-    tab split
-    tabprevious
+  tab split
+  tabprevious
 
-    if winnr('$') > 1
-        close
-    elseif bufnr('$') > 1
-        buffer #
-    endif
+  if winnr('$') > 1
+    close
+  elseif bufnr('$') > 1
+    buffer #
+  endif
 
-    tabnext
+  tabnext
 endfunction
 " }}}
 " }}}
@@ -149,9 +150,9 @@ nmap Q <Nop>
 " set undodir and undo file {{{
 set undofile
 if !has('nvim')
-	if !isdirectory(expand("$HOME/.vim/undodir"))
-		call mkdir(expand("$HOME/.vim/undodir"), "p")
-	endif
+  if !isdirectory(expand("$HOME/.vim/undodir"))
+    call mkdir(expand("$HOME/.vim/undodir"), "p")
+  endif
 endif
 set undodir=$HOME/.vim/undodir
 " }}}
@@ -162,8 +163,8 @@ let g:mapleader="\<space>"
 
 " For JavaScript files, use `eslint` (and only eslint)
 let g:ale_linters = {
-			\   'javascript': ['eslint'],
-			\ }
+      \   'javascript': ['eslint'],
+      \ }
 
 " Mappings in the style of unimpaired-next
 nmap <silent> [W <Plug>(ale_first)
@@ -197,15 +198,15 @@ nmap gs <plug>(GrepperOperator)
 xmap gs <plug>(GrepperOperator)
 
 augroup configure_projects
-	autocmd!
-	autocmd User ProjectionistActivate call s:linters()
+  autocmd!
+  autocmd User ProjectionistActivate call s:linters()
 augroup END
 
 function! s:linters() abort
-	let l:linters = projectionist#query('linters')
-	if len(l:linters) > 0
-		let b:ale_linters = {&filetype: l:linters[0][1]}
-	endif
+  let l:linters = projectionist#query('linters')
+  if len(l:linters) > 0
+    let b:ale_linters = {&filetype: l:linters[0][1]}
+  endif
 endfunction
 
 " prabirshrestha/vim-lsp {{{
@@ -217,18 +218,18 @@ let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
 
 " morhetz/gruvbox {{{
 augroup color_scheme
-	autocmd!
-	autocmd vimenter * ++nested colorscheme gruvbox
+  autocmd!
+  autocmd vimenter * ++nested colorscheme gruvbox
 augroup END
 set bg=dark
 " }}}
 
 " kien/rainbow_parentheses.vim {{{
 augroup parenthes
-	autocmd VimEnter * RainbowParenthesesToggle
-	autocmd Syntax * RainbowParenthesesLoadRound
-	autocmd Syntax * RainbowParenthesesLoadSquare
-	autocmd Syntax * RainbowParenthesesLoadBraces
+  autocmd VimEnter * RainbowParenthesesToggle
+  autocmd Syntax * RainbowParenthesesLoadRound
+  autocmd Syntax * RainbowParenthesesLoadSquare
+  autocmd Syntax * RainbowParenthesesLoadBraces
 augroup END
 " }}}
 
@@ -254,8 +255,8 @@ map g# <Plug>(incsearch-nohl-g#)
 
 " itchyny/lightline.vim {{{
 let g:lightline = {
-			\ 'colorscheme': 'wombat',
-			\ }
+      \ 'colorscheme': 'wombat',
+      \ }
 " }}}
 
 " simeji/winresizer {{{
@@ -268,8 +269,8 @@ let g:winresizer_horiz_resize=1
 " if there is local config, then load it {{{
 let $LOCALFILE=expand("~/.vimrc_local")
 if filereadable($LOCALFILE)
-	source $LOCALFILE
+  source $LOCALFILE
 endif
 " }}}
 
-" vim: fdm=marker
+" vim: expandtab softtabstop=2 shiftwidth=2 foldmethod=marker
