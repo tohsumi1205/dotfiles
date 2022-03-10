@@ -1,40 +1,47 @@
 source ~/dotfiles/plugins.vim
 
 " Basic editing config {{{
-syntax on					" turn on syntax highlighting
-filetype plugin indent on	" detection:ON  plugin:ON  indent:ON
-set autoindent				" copy indent from current line when starting a new line
-set tabstop=4				" <Tab> size is equal to 4 spaces
+syntax on " turn on syntax highlighting
+filetype plugin indent on " detection:ON  plugin:ON  indent:ON
+set autoindent " copy indent from current line when starting a new line
+set tabstop=4 " <Tab> size is equal to 4 spaces
 set shiftwidth=4
 set backspace=indent,eol,start " allow backspacing over everything
-set laststatus=2		" always a status line
-set nu					" number lines
-set rnu					" relative line numbering
-set showmatch			" show matching braces when text indicator is over them
-set matchtime=1			" match 0.1 sec
-set display=lastline	" show long line text
-set nofoldenable		" disable folding
+set laststatus=2 " always a status line
+set nu " number lines
+set rnu " relative line numbering
+set showmatch " show matching braces when text indicator is over them
+set matchtime=1 " match 0.1 sec
+set display=lastline " show long line text
+set nofoldenable " disable folding
 set noerrorbells visualbell t_vb= " disable audible bell
-set history=10000		" more history
-set hidden				" allow auto-hiding of edited buffers 
-set nojoinspaces		" inserting one spaces between sentences
-set list lcs=tab:\¦\    " set list to see tabs
-set wildmenu					" command-line autocompletion on
-set wildmode=list:longest,full	" show all the options
-set keywordprg=:help	" open vim internal help by K command
-set updatetime=100		" update more frequently
-set modeline
+set history=10000 " more history
+set hidden " allow auto-hiding of edited buffers
+set nojoinspaces " inserting one spaces between sentences
+set wildmenu " command-line autocompletion on
+set wildmode=list:longest,full " show all the options
+set keywordprg=:help " open vim internal help by K command
+set updatetime=100 " update more frequently
+set modeline " enable load mode
+
+" show invisibles {{{
+set list
+set listchars=tab:\¦\    " set list to see tabs
+
+" shortcut to rapidly toggle `set list`
+nnoremap <silent> <leader>l :<C-u>set list! list?<CR>
+" }}}
 
 " window split {{{
-set splitbelow			" open new split panes to bottom
-set splitright			" and right, which feels more natural
+set splitbelow " open new split panes to bottom
+set splitright " and right, which feels more natural
 " }}}
 
 " shearch config {{{
-set ignorecase			" case of normal letters is ignored
-set smartcase			" unless the search pattern contains upper cases
-set incsearch			" incremental search (as string is being typed so far)
-set hlsearch			" highlight search
+set ignorecase " case of normal letters is ignored
+set smartcase  " unless the search pattern contains upper cases
+set incsearch  " incremental search (as string is being typed so far)
+set hlsearch   " highlight search
 " }}}
 
 " highlight current line, but only in active window {{{
@@ -172,19 +179,20 @@ nmap <silent> [w <Plug>(ale_previous)
 nmap <silent> ]w <Plug>(ale_next)
 nmap <silent> ]W <Plug>(ale_last)
 
-" ALE run linters only when invoked it by hand.
-nnoremap <Leader>l :ALELint<CR>
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
-let g:ale_lint_on_save = 0
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_filetype_changed = 0
+" ALE run linters only when invoked it by hand. {{{
+" nnoremap <Leader>l :ALELint<CR>
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_insert_leave = 0
+" let g:ale_lint_on_save = 0
+" let g:ale_lint_on_enter = 0
+" let g:ale_lint_on_filetype_changed = 0
+" }}}
 
 " ALE run automatically
-" let g:ale_lint_on_text_changed = 'always'
-" let g:ale_lint_on_save = 1
-" let g:ale_lint_on_enter = 1
-" let g:ale_lint_on_filetype_changed = 1
+let g:ale_lint_on_text_changed = 'always'
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_filetype_changed = 1
 
 " configure Grepper
 let g:grepper       = {}
