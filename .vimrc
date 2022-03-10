@@ -4,8 +4,6 @@ source ~/dotfiles/plugins.vim
 syntax on " turn on syntax highlighting
 filetype plugin indent on " detection:ON  plugin:ON  indent:ON
 set autoindent " copy indent from current line when starting a new line
-set tabstop=4 " <Tab> size is equal to 4 spaces
-set shiftwidth=4
 set backspace=indent,eol,start " allow backspacing over everything
 set laststatus=2 " always a status line
 set nu " number lines
@@ -23,6 +21,12 @@ set wildmode=list:longest,full " show all the options
 set keywordprg=:help " open vim internal help by K command
 set updatetime=100 " update more frequently
 set modeline " enable load mode
+
+" <Tab> size is equal to 4 spaces {{{
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+" }}}
 
 " show invisibles {{{
 set list
