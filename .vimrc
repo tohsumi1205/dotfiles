@@ -55,6 +55,19 @@ augroup CursorLineOnlyInActiveWindow
   autocmd WinLeave * setlocal nocursorline
 augroup END
 " }}}
+
+" highlight eol whitespaces {{{
+function! s:hl_trailing_spaces()
+  highlight! link TrailingSpaces Error
+  syntax match TrailingSpaces containedin=ALL /\s\+$/
+endfunction
+
+augroup HighlightTrailingSpaces
+  autocmd!
+  autocmd BufWinEnter,InsertLeave * call s:hl_trailing_spaces()
+augroup END
+" }}}
+
 " }}}
 
 " tab configuration {{{
