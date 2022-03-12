@@ -276,6 +276,12 @@ let g:winresizer_vert_resize=2
 let g:winresizer_horiz_resize=1
 " }}}
 
+" goerz/jupytext.vim {{{
+" convert to python file
+let g:jupytext_fmt = 'py:percent'
+let g:jupytext_filetype_map = {'py': 'python'}
+" }}}
+
 " }}}
 
 " if there is local config, then load it {{{

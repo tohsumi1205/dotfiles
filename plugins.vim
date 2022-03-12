@@ -37,6 +37,15 @@ call minpac#add('simeji/winresizer')
 call minpac#add('kana/vim-textobj-entire')
 call minpac#add('kana/vim-textobj-user')
 
+" python {{{
+
+" enable handle .ipynb file like .py file
+call minpac#add('goerz/jupytext.vim')
+" make vim talk to jupyter kernels
+call minpac#add('jupyter-vim/jupyter-vim')
+
+" }}}
+
 " tmux {{{
 call minpac#add('christoomey/vim-tmux-navigator')
 " }}}
@@ -60,4 +69,4 @@ call minpac#add('pbondoer/vim-42header')
 
 silent! helptags ALL
 
-" vim: fdm=marker
+" vim: expandtab softtabstop=2 shiftwidth=2 foldmethod=marker
