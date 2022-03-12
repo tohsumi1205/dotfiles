@@ -86,6 +86,24 @@ nmap <leader>$ :<c-u>call <SID>preserve("%s/\\s\\+$//ge")<cr>
 nmap <leader>= :<c-u>call <SID>preserve("normal gg=G")<cr>
 " }}}
 
+" change current directory {{{
+" https://vim-jp.org/vim-users-jp/2009/09/08/Hack-69.html
+command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
+function! s:ChangeCurrentDir(directory, bang)
+    if a:directory == ''
+        lcd %:p:h
+    else
+        execute 'lcd' . a:directory
+    endif
+
+    if a:bang == ''
+        pwd
+    endif
+endfunction
+
+nnoremap <silent> <Space>cd :<C-u>CD<CR>
+"}}}
+
 " }}}
 
 " tab configuration {{{
