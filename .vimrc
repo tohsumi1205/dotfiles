@@ -56,7 +56,18 @@ augroup CursorLineOnlyInActiveWindow
 augroup END
 " }}}
 
-" highlight eol whitespaces {{{
+" keep state vim function {{{
+function! s:preserve(command)
+  let l:_s=@/
+  let l:pos = winsaveview()
+  silent! execute a:command
+  let @/=l:_s
+  call winrestview(l:pos)
+endfunction
+" }}}
+
+" highlight or remove eol whitespaces {{{
+" highlight {{{
 function! s:hl_trailing_spaces()
   highlight! link TrailingSpaces Error
   syntax match TrailingSpaces containedin=ALL /\s\+$/
@@ -65,7 +76,10 @@ endfunction
 augroup HighlightTrailingSpaces
   autocmd!
   autocmd BufWinEnter,InsertLeave * call s:hl_trailing_spaces()
-augroup END
+augroup END " }}}
+
+" remove
+nmap <leader>$ :<c-u>call <SID>preserve("%s/\\s\\+$//ge")<cr>
 " }}}
 
 " }}}
