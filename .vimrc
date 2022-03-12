@@ -82,6 +82,10 @@ augroup END " }}}
 nmap <leader>$ :<c-u>call <SID>preserve("%s/\\s\\+$//ge")<cr>
 " }}}
 
+" format entire buffer {{{
+nmap <leader>= :<c-u>call <SID>preserve("normal gg=G")<cr>
+" }}}
+
 " }}}
 
 " tab configuration {{{
