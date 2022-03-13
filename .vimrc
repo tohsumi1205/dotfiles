@@ -22,6 +22,8 @@ set keywordprg=:help " open vim internal help by K command
 set updatetime=100 " update more frequently
 set modeline " enable load mode
 set wrap " Lines longer than the width of the window will wrap
+set formatoptions-=r,o " disable comment out automatically when line break
+nnoremap <Leader>s :<C-u>setl spell! spell?<CR>
 
 " <Tab> size is equal to 4 spaces {{{
 set tabstop=4
@@ -42,7 +44,7 @@ set splitbelow " open new split panes to bottom
 set splitright " and right, which feels more natural
 " }}}
 
-" shearch config {{{
+" search config {{{
 set ignorecase " case of normal letters is ignored
 set smartcase  " unless the search pattern contains upper cases
 set incsearch  " incremental search (as string is being typed so far)
