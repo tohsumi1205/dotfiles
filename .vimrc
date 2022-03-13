@@ -270,6 +270,12 @@ function! s:linters() abort
   endif
 endfunction
 
+" netrw {{{
+let g:netrw_banner = 0 " disable show banner
+let g:netrw_liststyle = 3 " show directory in tree style
+let g:netrw_winsize = 30 " size 30%
+" }}}
+
 " prabirshrestha/vim-lsp {{{
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
