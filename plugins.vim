@@ -11,7 +11,7 @@ packadd minpac
 call minpac#init({'verbose': 0})
 
 " minpac must have {'type': 'opt'} so that it can be loaded with `packadd`.
-" by doing so, minpac is loaded before .vimrc is sourced and 
+" by doing so, minpac is loaded before .vimrc is sourced and
 " plugins installed under ~/.vim/pack/minpac/start/ are automatically added to the 'runtimepath'.
 call minpac#add('k-tanaka/minpac', {'type': 'opt'})
 
