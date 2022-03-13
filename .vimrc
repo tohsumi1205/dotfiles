@@ -21,6 +21,7 @@ set wildmode=list:longest,full " show all the options
 set keywordprg=:help " open vim internal help by K command
 set updatetime=100 " update more frequently
 set modeline " enable load mode
+set wrap " Lines longer than the width of the window will wrap
 
 " <Tab> size is equal to 4 spaces {{{
 set tabstop=4
@@ -33,7 +34,7 @@ set list
 set listchars=tab:\¦\    " set list to see tabs
 
 " shortcut to rapidly toggle `set list`
-nnoremap <silent> <leader>l :<C-u>set list! list?<CR>
+nnoremap <silent> <space>l :<C-u>set list! list?<CR>
 " }}}
 
 " window split {{{
@@ -79,26 +80,26 @@ augroup HighlightTrailingSpaces
 augroup END " }}}
 
 " remove
-nmap <leader>$ :<c-u>call <SID>preserve("%s/\\s\\+$//ge")<cr>
+nmap <space>$ :<c-u>call <SID>preserve("%s/\\s\\+$//ge")<cr>
 " }}}
 
 " format entire buffer {{{
-nmap <leader>= :<c-u>call <SID>preserve("normal gg=G")<cr>
+nmap <space>= :<c-u>call <SID>preserve("normal gg=G")<cr>
 " }}}
 
 " change current directory {{{
 " https://vim-jp.org/vim-users-jp/2009/09/08/Hack-69.html
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
 function! s:ChangeCurrentDir(directory, bang)
-    if a:directory == ''
-        lcd %:p:h
-    else
-        execute 'lcd' . a:directory
-    endif
+  if a:directory == ''
+    lcd %:p:h
+  else
+    execute 'lcd' . a:directory
+  endif
 
-    if a:bang == ''
-        pwd
-    endif
+  if a:bang == ''
+    pwd
+  endif
 endfunction
 
 nnoremap <silent> <Space>cd :<C-u>CD<CR>
