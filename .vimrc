@@ -22,8 +22,6 @@ set keywordprg=:help " open vim internal help by K command
 set updatetime=100 " update more frequently
 set modeline " enable load mode
 set wrap " Lines longer than the width of the window will wrap
-set formatoptions-=r " disable comment out automatically when line break
-set formatoptions-=o
 
 " spell check {{{
 set spelllang=en,cjk " spell checking language
@@ -227,7 +225,7 @@ set undodir=$HOME/.vim/undodir
 " }}}
 
 " Plugin configuration {{{
-let g:mapleader="\<space>"
+let g:mapleader=","
 
 " For JavaScript files, use `eslint` (and only eslint)
 let g:ale_linters = {
