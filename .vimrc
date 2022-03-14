@@ -298,121 +298,128 @@ set undodir=$HOME/.vim/undodir
 " Plugin configuration {{{
 let g:mapleader=","
 
-" For JavaScript files, use `eslint` (and only eslint)
-let g:ale_linters = {
-      \   'javascript': ['eslint'],
-      \ }
-
-" Mappings in the style of unimpaired-next
-nmap <silent> [W <Plug>(ale_first)
-nmap <silent> [w <Plug>(ale_previous)
-nmap <silent> ]w <Plug>(ale_next)
-nmap <silent> ]W <Plug>(ale_last)
-
-" ALE run linters only when invoked it by hand. {{{
-" nnoremap <Leader>l :ALELint<CR>
-" let g:ale_lint_on_text_changed = 'never'
-" let g:ale_lint_on_insert_leave = 0
-" let g:ale_lint_on_save = 0
-" let g:ale_lint_on_enter = 0
-" let g:ale_lint_on_filetype_changed = 0
-" }}}
-
-" ALE run automatically
-let g:ale_lint_on_text_changed = 'always'
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_enter = 1
-let g:ale_lint_on_filetype_changed = 1
-
-" configure Grepper
-let g:grepper       = {}
-let g:grepper.tools = ['rg', 'grep']
-
-" Search for the current word
-nnoremap <Leader>* :Grepper -cword -noprompt<CR>
-
-" Search for the current selection
-nmap gs <plug>(GrepperOperator)
-xmap gs <plug>(GrepperOperator)
-
-augroup configure_projects
-  autocmd!
-  autocmd User ProjectionistActivate call s:linters()
-augroup END
-
-function! s:linters() abort
-  let l:linters = projectionist#query('linters')
-  if len(l:linters) > 0
-    let b:ale_linters = {&filetype: l:linters[0][1]}
-  endif
-endfunction
-
 " netrw {{{
 let g:netrw_banner = 0 " disable show banner
 let g:netrw_liststyle = 3 " show directory in tree style
 let g:netrw_winsize = 30 " size 30%
 " }}}
 
-" prabirshrestha/vim-lsp {{{
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
-let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
-" }}}
+if !isdirectory('~/.vim/pack/minpac/start')
+  finish
+else
+  " For JavaScript files, use `eslint` (and only eslint)
+  let g:ale_linters = {
+        \   'javascript': ['eslint'],
+        \ }
 
-" morhetz/gruvbox {{{
-augroup color_scheme
-  autocmd!
-  autocmd vimenter * nested colorscheme gruvbox
-augroup END
-set bg=dark
-" }}}
+  " Mappings in the style of unimpaired-next
+  nmap <silent> [W <Plug>(ale_first)
+  nmap <silent> [w <Plug>(ale_previous)
+  nmap <silent> ]w <Plug>(ale_next)
+  nmap <silent> ]W <Plug>(ale_last)
 
-" kien/rainbow_parentheses.vim {{{
-augroup parenthes
-  autocmd VimEnter * RainbowParenthesesToggle
-  autocmd Syntax * RainbowParenthesesLoadRound
-  autocmd Syntax * RainbowParenthesesLoadSquare
-  autocmd Syntax * RainbowParenthesesLoadBraces
-augroup END
-" }}}
+  " ALE run linters only when invoked it by hand. {{{
+  " nnoremap <Leader>l :ALELint<CR>
+  " let g:ale_lint_on_text_changed = 'never'
+  " let g:ale_lint_on_insert_leave = 0
+  " let g:ale_lint_on_save = 0
+  " let g:ale_lint_on_enter = 0
+  " let g:ale_lint_on_filetype_changed = 0
+  " }}}
 
-" junegunn/fzf.vim {{{
-nnoremap <C-p> :<C-u>FZF<CR>
-nnoremap <silent> <leader>f :Files<CR>
-nnoremap <silent> <leader>h :History<CR>
-nnoremap <silent> <leader>b :Buffers<CR>
-" }}}
+  " ALE run automatically {{{
+  let g:ale_lint_on_text_changed = 'always'
+  let g:ale_lint_on_save = 1
+  let g:ale_lint_on_enter = 1
+  let g:ale_lint_on_filetype_changed = 1
+  " }}}
 
-" haya14busa/incsearch.vim {{{
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-let g:incsearch#auto_nohlsearch = 1
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
-" }}}
+  " configure Grepper {{{
+  let g:grepper       = {}
+  let g:grepper.tools = ['rg', 'grep']
 
-" itchyny/lightline.vim {{{
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ }
-" }}}
+  " Search for the current word
+  nnoremap <Leader>* :Grepper -cword -noprompt<CR>
 
-" simeji/winresizer {{{
-let g:winresizer_vert_resize=2
-let g:winresizer_horiz_resize=1
-" }}}
+  " Search for the current selection
+  nmap gs <plug>(GrepperOperator)
+  xmap gs <plug>(GrepperOperator)
+  " }}}
 
-" goerz/jupytext.vim {{{
-" convert to python file
-let g:jupytext_fmt = 'py:percent'
-let g:jupytext_filetype_map = {'py': 'python'}
-" }}}
+  augroup configure_projects
+    autocmd!
+    autocmd User ProjectionistActivate call s:linters()
+  augroup END
+
+  function! s:linters() abort
+    let l:linters = projectionist#query('linters')
+    if len(l:linters) > 0
+      let b:ale_linters = {&filetype: l:linters[0][1]}
+    endif
+  endfunction
+
+
+  " prabirshrestha/vim-lsp {{{
+  inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+  let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
+  " }}}
+
+  " morhetz/gruvbox {{{
+  augroup color_scheme
+    autocmd!
+    autocmd vimenter * nested colorscheme gruvbox
+  augroup END
+  set bg=dark
+  " }}}
+
+  " kien/rainbow_parentheses.vim {{{
+  augroup parenthes
+    autocmd VimEnter * RainbowParenthesesToggle
+    autocmd Syntax * RainbowParenthesesLoadRound
+    autocmd Syntax * RainbowParenthesesLoadSquare
+    autocmd Syntax * RainbowParenthesesLoadBraces
+  augroup END
+  " }}}
+
+  " junegunn/fzf.vim {{{
+  nnoremap <C-p> :<C-u>FZF<CR>
+  nnoremap <silent> <leader>f :Files<CR>
+  nnoremap <silent> <leader>h :History<CR>
+  nnoremap <silent> <leader>b :Buffers<CR>
+  " }}}
+
+  " haya14busa/incsearch.vim {{{
+  map /  <Plug>(incsearch-forward)
+  map ?  <Plug>(incsearch-backward)
+  map g/ <Plug>(incsearch-stay)
+  let g:incsearch#auto_nohlsearch = 1
+  map n  <Plug>(incsearch-nohl-n)
+  map N  <Plug>(incsearch-nohl-N)
+  map *  <Plug>(incsearch-nohl-*)
+  map #  <Plug>(incsearch-nohl-#)
+  map g* <Plug>(incsearch-nohl-g*)
+  map g# <Plug>(incsearch-nohl-g#)
+  " }}}
+
+  " itchyny/lightline.vim {{{
+  let g:lightline = {
+        \ 'colorscheme': 'wombat',
+        \ }
+  " }}}
+
+  " simeji/winresizer {{{
+  let g:winresizer_vert_resize=2
+  let g:winresizer_horiz_resize=1
+  " }}}
+
+  " goerz/jupytext.vim {{{
+  " convert to python file
+  let g:jupytext_fmt = 'py:percent'
+  let g:jupytext_filetype_map = {'py': 'python'}
+  " }}}
+endif
 
 " }}}
 
