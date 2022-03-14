@@ -2,6 +2,8 @@
 
 set -u
 
+git submodule update --init --recursive
+
 for f in .??*; do
 	[ "$f" = ".git" ] && continue
 	
