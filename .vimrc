@@ -304,7 +304,7 @@ let g:netrw_liststyle = 3 " show directory in tree style
 let g:netrw_winsize = 30 " size 30%
 " }}}
 
-if isdirectory(expand('~/.vim/pack/minpac/start'))
+if !empty(expand('~/.vim/pack/minpac/start/*'))
   " For JavaScript files, use `eslint` (and only eslint)
   let g:ale_linters = {
         \   'javascript': ['eslint'],
