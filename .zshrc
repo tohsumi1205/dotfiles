@@ -14,6 +14,6 @@ source ~/.zsh/plugins_after.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # enable load local file
-[ -f ~/.zshrc_local ] && source ~/.zshrc_local
-
-
+if [ -f ~/.zshrc_local ]; then
+	source ~/.zshrc_local
+fi
