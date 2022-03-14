@@ -15,6 +15,6 @@ for f in .??*; do
 done
 
 # install vim plugins
-vim -c PackUpdate -c wq ~/.vimrc
+vim -c PackUpdate -c q! tmp
 
 ~/.vim/pack/minpac/start/fzf/install
