@@ -18,3 +18,5 @@ done
 vim -c PackUpdate .vimrc -c q
 
 ~/.vim/pack/minpac/start/fzf/install
+
+echo -e "\n\n\033[32m need to install bat ripgrep tmux vim(latest version) for usability\033[m"
