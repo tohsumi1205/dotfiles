@@ -7,3 +7,6 @@
 [submodule ".zsh/plugins/zsh-autosuggestions"]
 	path = .zsh/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule ".vim/pack/minpac/opt/minpac"]
+	path = .vim/pack/minpac/opt/minpac
+	url = https://github.com/k-takata/minpac.git
