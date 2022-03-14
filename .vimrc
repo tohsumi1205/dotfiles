@@ -292,7 +292,7 @@ let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
 " morhetz/gruvbox {{{
 augroup color_scheme
   autocmd!
-  autocmd vimenter * ++nested colorscheme gruvbox
+  autocmd vimenter * nested colorscheme gruvbox
 augroup END
 set bg=dark
 " }}}
