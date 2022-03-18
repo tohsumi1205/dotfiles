@@ -10,6 +10,7 @@ command! -nargs=* AutocmdFT autocmd MyVimrc FileType <args>
 function! s:hl_my_autocmd()
   highlight def link myVimAutocmd vimAutoCmd
   syntax match vimAutoCmd /\<\(Autocmd\|AutocmdFT\)\>/
+  syntax keyword myVimAutocmd Autocmd skipwhite nextgroup=vimAutoEventList
 endfunction
 Autocmd BufWinEnter,ColorScheme *vimrc call s:hl_my_autocmd()
 
@@ -129,10 +130,7 @@ function! MyHighlights() abort
    highlight SpellBad cterm=underline
 endfunction
 
-augroup MyColors
-  autocmd!
-  autocmd ColorScheme * call MyHighlights()
-augroup END
+Autocmd ColorScheme * call MyHighlights()
 " }}}
 
 " }}}
@@ -164,11 +162,8 @@ set hlsearch   " highlight search
 " }}}
 
 " highlight current line, but only in active window {{{
-augroup CursorLineOnlyInActiveWindow
-  autocmd!
-  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  autocmd WinLeave * setlocal nocursorline
-augroup END
+Autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+Autocmd WinLeave * setlocal nocursorline
 " }}}
 
 " keep state vim function {{{
@@ -188,10 +183,8 @@ function! s:hl_trailing_spaces()
   syntax match TrailingSpaces containedin=ALL /\s\+$/
 endfunction
 
-augroup HighlightTrailingSpaces
-  autocmd!
-  autocmd BufWinEnter,InsertLeave * call s:hl_trailing_spaces()
-augroup END " }}}
+Autocmd BufWinEnter,InsertLeave * call s:hl_trailing_spaces()
+" }}}
 
 " remove
 nmap <space>$ :<c-u>call <SID>preserve("%s/\\s\\+$//ge")<cr>
@@ -338,12 +331,9 @@ set undodir=$HOME/.vim/undodir
 " }}}
 
 " File type configuration {{{
-augroup vimrc
-  autocmd!
-  " spell check in git commit
-  autocmd FileType gitcommit setlocal spell nofoldenable
-  autocmd Filetype help      nnoremap <buffer> q ZZ
-augroup END
+" spell check in git commit
+AutocmdFT gitcommit setlocal spell nofoldenable
+AutocmdFT help      nnoremap <buffer> q ZZ
 "}}}
 
 " Plugin configuration {{{
@@ -416,20 +406,15 @@ if !empty(system('ls ~/.vim/pack/minpac/start/'))
   " }}}
 
   " morhetz/gruvbox {{{
-  augroup color_scheme
-    autocmd!
-    autocmd vimenter * nested colorscheme gruvbox
-  augroup END
+  Autocmd vimenter * nested colorscheme gruvbox
   set bg=dark
   " }}}
 
   " kien/rainbow_parentheses.vim {{{
-  augroup parenthes
-    autocmd VimEnter * RainbowParenthesesToggle
-    autocmd Syntax * RainbowParenthesesLoadRound
-    autocmd Syntax * RainbowParenthesesLoadSquare
-    autocmd Syntax * RainbowParenthesesLoadBraces
-  augroup END
+  Autocmd VimEnter * RainbowParenthesesToggle
+  Autocmd Syntax * RainbowParenthesesLoadRound
+  Autocmd Syntax * RainbowParenthesesLoadSquare
+  Autocmd Syntax * RainbowParenthesesLoadBraces
   " }}}
 
   " junegunn/fzf.vim {{{
