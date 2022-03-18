@@ -314,6 +314,7 @@ nnoremap - <C-x>
 
 " key binding {{{
 nnoremap Y y$ " consistent with D for dd, C cc
+nnoremap gV `[v`] " visually select the text that was last edited
 " }}}
 
 " unbind key {{{
@@ -400,6 +401,12 @@ if !empty(system('ls ~/.vim/pack/minpac/start/'))
     endif
   endfunction
 
+  " tpope/vim-unimpaired {{{
+  nmap <C-Up> [e
+  nmap <C-Down> ]e
+  vmap <C-Up> [egv
+  vmap <C-Down> ]egv
+  " }}}
 
   " prabirshrestha/vim-lsp {{{
   inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
