@@ -14,6 +14,9 @@ function! s:hl_my_autocmd()
 endfunction
 Autocmd BufWinEnter,ColorScheme *vimrc call s:hl_my_autocmd()
 
+" source vimrc file after saving it
+Autocmd BufWritePost *vimrc source $MYVIMRC
+
 " echo startup time on start {{{
 if has('vim_starting') && has('reltime')
   " Shell: vim --startuptime filename -q; vim filename
@@ -127,7 +130,7 @@ nnoremap <space>s :<C-u>setl spell! spell?<CR>
 
 " underline the word which is not recognized by the spellchecker {{{
 function! MyHighlights() abort
-   highlight SpellBad cterm=underline
+   highlight SpellBad ctermbg=RED ctermfg=BLACK
 endfunction
 
 Autocmd ColorScheme * call MyHighlights()
@@ -213,7 +216,7 @@ nnoremap <silent> <Space>cd :<C-u>CD<CR>
 "}}}
 
 " restore last cursor position when open a file {{{
-
+Autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 " }}}
 
 " }}}
