@@ -307,6 +307,15 @@ set undodir=$HOME/.vim/undodir
 " }}}
 " }}}
 
+" File type configuration {{{
+augroup vimrc
+  autocmd!
+  " spell check in git commit
+  autocmd FileType gitcommit setlocal spell nofoldenable
+  autocmd Filetype help      nnoremap <buffer> q ZZ
+augroup END
+"}}}
+
 " Plugin configuration {{{
 let g:mapleader=","
 
