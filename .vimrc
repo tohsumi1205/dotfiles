@@ -1,5 +1,5 @@
 " Plugins {{{
-" load minpac on demand and show errormessage if needed.
+" load minpac on demand and show error message if needed.
 function! PackInit() abort
   packadd minpac
   if !exists('g:loaded_minpac')
