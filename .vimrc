@@ -1,3 +1,29 @@
+
+" Startup {{{
+" https://github.com/rhysd/dogfiles/blob/master/vimrc
+augroup MyVimrc
+  autocmd!
+augroup END
+
+command! -nargs=* Autocmd autocmd MyVimrc <args>
+command! -nargs=* AutocmdFT autocmd MyVimrc FileType <args>
+function! s:hl_my_autocmd()
+  highlight def link myVimAutocmd vimAutoCmd
+  syntax match vimAutoCmd /\<\(Autocmd\|AutocmdFT\)\>/
+endfunction
+Autocmd BufWinEnter,ColorScheme *vimrc call s:hl_my_autocmd()
+
+" echo startup time on start {{{
+if has('vim_starting') && has('reltime')
+  " Shell: vim --startuptime filename -q; vim filename
+  " vim --cmd 'profile start profile.txt' --cmd 'profile file $HOME/.vimrc' +q && vim profile.txt
+  let g:startuptime = reltime()
+  Autocmd VimEnter * let g:startuptime = reltime(g:startuptime) | redraw
+  \ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
+endif
+" }}}
+" }}}
+
 " Plugins {{{
 " load minpac on demand and show error message if needed.
 function! PackInit() abort
@@ -192,6 +218,10 @@ endfunction
 
 nnoremap <silent> <Space>cd :<C-u>CD<CR>
 "}}}
+
+" restore last cursor position when open a file {{{
+
+" }}}
 
 " }}}
 

@@ -1,0 +1,487 @@
+SCRIPT  /home/tohsumi/.vimrc
+Sourced 1 time
+Total time:   0.010329
+ Self time:   0.010329
+
+count  total (s)   self (s)
+                            
+                            " Startup {{{
+                            " https://github.com/rhysd/dogfiles/blob/master/vimrc
+    1              0.000002 augroup MyVimrc
+    1              0.000041   autocmd!
+    1              0.000001 augroup END
+                            
+    1              0.000009 command! -nargs=* Autocmd autocmd MyVimrc <args>
+    1              0.000007 command! -nargs=* AutocmdFT autocmd MyVimrc FileType <args>
+    1              0.000003 function! s:hl_my_autocmd()
+                              highlight def link myVimAutocmd vimAutoCmd
+                              syntax match vimAutoCmd /\<\(Autocmd\|AutocmdFT\)\>/
+                            endfunction
+    1              0.000009 Autocmd BufWinEnter,ColorScheme *vimrc call s:hl_my_autocmd()
+                            
+    1              0.000008 if has('vim_starting') && has('reltime')
+                              " Shell: vim --startuptime filename -q; vim filename
+                              " vim --cmd 'profile start profile.txt' --cmd 'profile file $HOME/.vimrc' +q && vim profile.txt
+    1              0.000005   let g:startuptime = reltime()
+    1              0.000007   Autocmd VimEnter * let g:startuptime = reltime(g:startuptime) | redraw
+                              \ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
+    1              0.000001 endif
+                            " }}}
+                            
+                            " Plugins {{{
+                            " load minpac on demand and show error message if needed.
+    1              0.000001 function! PackInit() abort
+                              packadd minpac
+                              if !exists('g:loaded_minpac')
+                                echoerr 'minpac installation has failed!'
+                                finish
+                              else
+                                call minpac#init({'verbose': 0, 'progress_open': 'none'})
+                            
+                                " minpac must have {'type': 'opt'} so that it can be loaded with `packadd`.
+                                " by doing so, minpac is loaded before .vimrc is sourced and
+                                " plugins installed under ~/.vim/pack/minpac/start/ are automatically added to the 'runtimepath'.
+                                call minpac#add('k-tanaka/minpac', {'type': 'opt'})
+                            
+                                call minpac#add('tpope/vim-unimpaired')
+                                call minpac#add('junegunn/fzf')
+                                call minpac#add('junegunn/fzf.vim')
+                                call minpac#add('tpope/vim-obsession')
+                                call minpac#add('tpope/vim-commentary')
+                                call minpac#add('tpope/vim-projectionist')
+                                call minpac#add('tpope/vim-dispatch')
+                                call minpac#add('w0rp/ale')
+                                call minpac#add('mhinz/vim-grepper')
+                                call minpac#add('janko-m/vim-test')
+                                call minpac#add('sgur/vim-editorconfig')
+                                call minpac#add('mhinz/vim-startify')
+                                call minpac#add('haya14busa/incsearch.vim')
+                                call minpac#add('easymotion/vim-easymotion')
+                                call minpac#add('tpope/vim-surround')
+                                call minpac#add('airblade/vim-gitgutter')
+                                call minpac#add('simeji/winresizer')
+                                call minpac#add('kana/vim-textobj-entire')
+                                call minpac#add('kana/vim-textobj-user')
+                            
+                                " python {{{
+                                " enable handle .ipynb file like .py file
+                                call minpac#add('goerz/jupytext.vim')
+                                " make vim talk to jupyter kernels
+                                call minpac#add('jupyter-vim/jupyter-vim')
+                                " }}}
+                            
+                                " tmux {{{
+                                call minpac#add('christoomey/vim-tmux-navigator')
+                                " }}}
+                            
+                                " color scheme {{{
+                                call minpac#add('morhetz/gruvbox')
+                                call minpac#add('kien/rainbow_parentheses.vim')
+                                call minpac#add('itchyny/lightline.vim')
+                                " }}}
+                            
+                                " lsp {{{
+                                call minpac#add('prabirshrestha/vim-lsp')
+                                call minpac#add('mattn/vim-lsp-settings')
+                                call minpac#add('prabirshrestha/asyncomplete.vim')
+                                call minpac#add('prabirshrestha/asyncomplete-lsp.vim')
+                                " }}}
+                            
+                                " 42 {{{
+                                call minpac#add('pbondoer/vim-42header')
+                                " }}}
+                            
+                                silent! helptags ALL
+                              endif
+                            endfunction
+                            
+    1              0.000007 command! PackUpdate source $MYVIMRC | call PackInit() | call minpac#update()
+    1              0.000007 command! PackClean  source $MYVIMRC | call PackInit() | call minpac#clean()
+    1              0.000006 command! PackStatus packadd minpac | call minpac#status()
+                            
+                            " }}}
+                            
+                            " Basic editing config {{{
+    1              0.000647 syntax on " turn on syntax highlighting
+    1              0.000185 filetype plugin indent on " detection:ON  plugin:ON  indent:ON
+    1              0.000002 set autoindent " copy indent from current line when starting a new line
+    1              0.000003 set backspace=indent,eol,start " allow backspacing over everything
+    1              0.000007 set laststatus=2 " always a status line
+    1              0.000003 set nu " number lines
+    1              0.000003 set rnu " relative line numbering
+    1              0.000002 set showmatch " show matching braces when text indicator is over them
+    1              0.000001 set matchtime=1 " match 0.1 sec
+    1              0.000023 set display=lastline " show long line text
+    1              0.000002 set nofoldenable " disable folding
+    1              0.000007 set noerrorbells visualbell t_vb= " disable audible bell
+    1              0.000002 set history=10000 " more history
+    1              0.000001 set hidden " allow auto-hiding of edited buffers
+    1              0.000001 set nojoinspaces " inserting one spaces between sentences
+    1              0.000002 set wildmenu " command-line autocompletion on
+    1              0.000004 set wildmode=list:longest,full " show all the options
+    1              0.000001 set keywordprg=:help " open vim internal help by K command
+    1              0.000001 set updatetime=100 " update more frequently
+    1              0.000001 set modeline " enable load mode
+    1              0.000002 set wrap " Lines longer than the width of the window will wrap
+                            
+                            " spell check {{{
+    1              0.000030 set spelllang=en,cjk " spell checking language
+    1              0.000010 nnoremap <space>s :<C-u>setl spell! spell?<CR>
+                            
+                            " underline the word which is not recognized by the spellchecker {{{
+    1              0.000002 function! MyHighlights() abort
+                               highlight SpellBad cterm=underline
+                            endfunction
+                            
+    1              0.000001 augroup MyColors
+    1              0.000032   autocmd!
+    1              0.000004   autocmd ColorScheme * call MyHighlights()
+    1              0.000001 augroup END
+                            " }}}
+                            
+                            " }}}
+                            
+                            " <Tab> size is equal to 4 spaces {{{
+    1              0.000001 set tabstop=4
+    1              0.000002 set softtabstop=4
+    1              0.000002 set shiftwidth=4
+                            " }}}
+                            
+                            " show invisibles {{{
+    1              0.000001 set list
+    1              0.000004 set listchars=tab:\¦\    " set list to see tabs
+                            
+                            " shortcut to rapidly toggle `set list`
+    1              0.000006 nnoremap <silent> <space>l :<C-u>set list! list?<CR>
+                            " }}}
+                            
+                            " window split {{{
+    1              0.000001 set splitbelow " open new split panes to bottom
+    1              0.000001 set splitright " and right, which feels more natural
+                            " }}}
+                            
+                            " search config {{{
+    1              0.000002 set ignorecase " case of normal letters is ignored
+    1              0.000001 set smartcase  " unless the search pattern contains upper cases
+    1              0.000001 set incsearch  " incremental search (as string is being typed so far)
+    1              0.000002 set hlsearch   " highlight search
+                            " }}}
+                            
+                            " highlight current line, but only in active window {{{
+    1              0.000001 augroup CursorLineOnlyInActiveWindow
+    1              0.000025   autocmd!
+    1              0.000007   autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    1              0.000004   autocmd WinLeave * setlocal nocursorline
+    1              0.000001 augroup END
+                            " }}}
+                            
+                            " keep state vim function {{{
+    1              0.000003 function! s:preserve(command)
+                              let l:_s=@/
+                              let l:pos = winsaveview()
+                              silent! execute a:command
+                              let @/=l:_s
+                              call winrestview(l:pos)
+                            endfunction
+                            " }}}
+                            
+                            " highlight or remove eol whitespaces {{{
+                            " highlight {{{
+    1              0.000002 function! s:hl_trailing_spaces()
+                              highlight! link TrailingSpaces Error
+                              syntax match TrailingSpaces containedin=ALL /\s\+$/
+                            endfunction
+                            
+    1              0.000001 augroup HighlightTrailingSpaces
+    1              0.000023   autocmd!
+    1              0.000005   autocmd BufWinEnter,InsertLeave * call s:hl_trailing_spaces()
+    1              0.000001 augroup END " }}}
+                            
+                            " remove
+    1              0.000007 nmap <space>$ :<c-u>call <SID>preserve("%s/\\s\\+$//ge")<cr>
+                            " }}}
+                            
+                            " format entire buffer {{{
+    1              0.000006 nmap <space>= :<c-u>call <SID>preserve("normal gg=G")<cr>
+                            " }}}
+                            
+                            " change current directory {{{
+                            " https://vim-jp.org/vim-users-jp/2009/09/08/Hack-69.html
+    1              0.000012 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
+    1              0.000004 function! s:ChangeCurrentDir(directory, bang)
+                              if a:directory == ''
+                                lcd %:p:h
+                              else
+                                execute 'lcd' . a:directory
+                              endif
+                            
+                              if a:bang == ''
+                                pwd
+                              endif
+                            endfunction
+                            
+    1              0.000005 nnoremap <silent> <Space>cd :<C-u>CD<CR>
+                            "}}}
+                            
+                            " restore last cursor position when open a file {{{
+                            
+                            " }}}
+                            
+                            " }}}
+                            
+                            " tab configuration {{{
+                            
+                            " Anywhere SID.
+    1              0.000002 function! s:SID_PREFIX()
+                              return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
+                            endfunction
+                            
+                            " Set tabline.
+    1              0.000002 function! s:my_tabline()  "{{{
+                              let s = ''
+                              for i in range(1, tabpagenr('$'))
+                                let bufnrs = tabpagebuflist(i)
+                                let bufnr = bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
+                                let no = i  " display 0-origin tabpagenr.
+                                let mod = getbufvar(bufnr, '&modified') ? '!' : ' '
+                                let title = fnamemodify(bufname(bufnr), ':t')
+                                let title = '[' . title . ']'
+                                let s .= '%'.i.'T'
+                                let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
+                                let s .= no . ':' . title
+                                let s .= mod
+                                let s .= '%#TabLineFill# '
+                              endfor
+                              let s .= '%#TabLineFill#%T%=%#TabLine#'
+                              return s
+                            endfunction "}}}
+    1              0.000024 let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
+                            
+                            " tabline pop up only when there are more than one tab
+    1              0.000002 set showtabline=1
+                            
+                            " key binds related to tab {{{
+                            " prefix
+    1              0.000003 nnoremap    [Tag]   <Nop>
+    1              0.000003 nmap    t [Tag]
+                            
+                            " jump to n-th tab by t(1..9) {{{
+   10              0.000012 for n in range(1, 9)
+    9              0.000071   execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
+   10              0.000008 endfor
+                            " }}}
+                            
+    1              0.000009 map <silent> [Tag]n :tablast <bar> tabnew<CR> " create a new tab on the far right
+    1              0.000006 map <silent> [Tag]x :tabclose<CR> " close tab
+                            
+                            " create new tab with a current open buffer (tm command in normal mode) {{{
+    1              0.000006 nnoremap <silent> tm :<C-u>call <SID>MoveToNewTab()<CR>
+    1              0.000002 function! s:MoveToNewTab()
+                              tab split
+                              tabprevious
+                            
+                              if winnr('$') > 1
+                                close
+                              elseif bufnr('$') > 1
+                                buffer #
+                              endif
+                            
+                              tabnext
+                            endfunction
+                            " }}}
+                            " }}}
+                            " }}}
+                            
+                            " Misc configuration {{{
+                            
+                            " Windows movement. {{{
+    1              0.000004 noremap <c-h> <c-w><c-h>
+    1              0.000004 noremap <c-j> <c-w><c-j>
+    1              0.000004 noremap <c-k> <c-w><c-k>
+    1              0.000004 noremap <c-l> <c-w><c-l>
+                            " }}}
+                            
+                            " movement between terminal and vim {{{
+    1              0.000004 tnoremap <c-j> <c-w><c-j>
+    1              0.000003 tnoremap <c-k> <c-w><c-k>
+    1              0.000004 tnoremap <c-l> <c-w><c-l>
+    1              0.000004 tnoremap <c-h> <c-w><c-h>
+                            " }}}
+                            
+                            " Cursor movement. {{{
+    1              0.000005 noremap <expr> j (v:count == 0 ? 'gj' : 'j')
+    1              0.000005 noremap <expr> k (v:count == 0 ? 'gk' : 'k')
+    1              0.000003 noremap <Up> gk
+    1              0.000004 noremap <Down> gj
+                            " }}}
+                            
+                            " increment setting {{{
+    1              0.000002 nnoremap + <C-a>
+    1              0.000003 nnoremap - <C-x>
+                            " }}}
+                            
+                            " key binding {{{
+    1              0.000006 nnoremap Y y$ " consistent with D for dd, C cc
+                            " }}}
+                            
+                            " unbind key {{{
+    1              0.000004 map <C-a> <Nop>
+    1              0.000003 map <C-x> <Nop>
+    1              0.000003 nmap Q <Nop>
+                            " }}}
+                            
+                            " set undodir and undo file {{{
+    1              0.000002 set undofile
+    1              0.000005 if !has('nvim')
+    1              0.000012   if !isdirectory(expand("$HOME/.vim/undodir"))
+                                call mkdir(expand("$HOME/.vim/undodir"), "p")
+    1              0.000001   endif
+    1              0.000001 endif
+    1              0.000003 set undodir=$HOME/.vim/undodir
+                            " }}}
+                            " }}}
+                            
+                            " File type configuration {{{
+    1              0.000001 augroup vimrc
+    1              0.000030   autocmd!
+                              " spell check in git commit
+    1              0.000007   autocmd FileType gitcommit setlocal spell nofoldenable
+    1              0.000003   autocmd Filetype help      nnoremap <buffer> q ZZ
+    1              0.000001 augroup END
+                            "}}}
+                            
+                            " Plugin configuration {{{
+    1              0.000002 let g:mapleader=","
+                            
+                            " netrw {{{
+    1              0.000002 let g:netrw_banner = 0 " disable show banner
+    1              0.000002 let g:netrw_liststyle = 3 " show directory in tree style
+    1              0.000002 let g:netrw_winsize = 30 " size 30%
+                            " }}}
+                            
+    1              0.007146 if !empty(system('ls ~/.vim/pack/minpac/start/'))
+                              " For JavaScript files, use `eslint` (and only eslint)
+    1              0.000038   let g:ale_linters = {
+                                    \   'javascript': ['eslint'],
+                                    \ }
+                            
+                              " Mappings in the style of unimpaired-next
+    1              0.000025   nmap <silent> [W <Plug>(ale_first)
+    1              0.000013   nmap <silent> [w <Plug>(ale_previous)
+    1              0.000010   nmap <silent> ]w <Plug>(ale_next)
+    1              0.000010   nmap <silent> ]W <Plug>(ale_last)
+                            
+                              " ALE run linters only when invoked it by hand. {{{
+                              " nnoremap <Leader>l :ALELint<CR>
+                              " let g:ale_lint_on_text_changed = 'never'
+                              " let g:ale_lint_on_insert_leave = 0
+                              " let g:ale_lint_on_save = 0
+                              " let g:ale_lint_on_enter = 0
+                              " let g:ale_lint_on_filetype_changed = 0
+                              " }}}
+                            
+                              " ALE run automatically {{{
+    1              0.000004   let g:ale_lint_on_text_changed = 'always'
+    1              0.000004   let g:ale_lint_on_save = 1
+    1              0.000004   let g:ale_lint_on_enter = 1
+    1              0.000004   let g:ale_lint_on_filetype_changed = 1
+                              " }}}
+                            
+                              " configure Grepper {{{
+    1              0.000005   let g:grepper       = {}
+    1              0.000006   let g:grepper.tools = ['rg', 'grep']
+                            
+                              " Search for the current word
+    1              0.000015   nnoremap <Leader>* :Grepper -cword -noprompt<CR>
+                            
+                              " Search for the current selection
+    1              0.000012   nmap gs <plug>(GrepperOperator)
+    1              0.000010   xmap gs <plug>(GrepperOperator)
+                              " }}}
+                            
+    1              0.000005   augroup configure_projects
+    1              0.000303     autocmd!
+    1              0.000021     autocmd User ProjectionistActivate call s:linters()
+    1              0.000002   augroup END
+                            
+    1              0.000010   function! s:linters() abort
+                                let l:linters = projectionist#query('linters')
+                                if len(l:linters) > 0
+                                  let b:ale_linters = {&filetype: l:linters[0][1]}
+                                endif
+                              endfunction
+                            
+                            
+                              " prabirshrestha/vim-lsp {{{
+    1              0.000013   inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+    1              0.000012   inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+    1              0.000015   inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+    1              0.000005   let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
+                              " }}}
+                            
+                              " morhetz/gruvbox {{{
+    1              0.000003   augroup color_scheme
+    1              0.000047     autocmd!
+    1              0.000011     autocmd vimenter * nested colorscheme gruvbox
+    1              0.000001   augroup END
+    1              0.000606   set bg=dark
+                              " }}}
+                            
+                              " kien/rainbow_parentheses.vim {{{
+    1              0.000003   augroup parenthes
+    1              0.000010     autocmd VimEnter * RainbowParenthesesToggle
+    1              0.000007     autocmd Syntax * RainbowParenthesesLoadRound
+    1              0.000006     autocmd Syntax * RainbowParenthesesLoadSquare
+    1              0.000004     autocmd Syntax * RainbowParenthesesLoadBraces
+    1              0.000002   augroup END
+                              " }}}
+                            
+                              " junegunn/fzf.vim {{{
+    1              0.000013   nnoremap <C-p> :<C-u>FZF<CR>
+    1              0.000012   nnoremap <silent> <leader>f :Files<CR>
+    1              0.000010   nnoremap <silent> <leader>h :History<CR>
+    1              0.000010   nnoremap <silent> <leader>b :Buffers<CR>
+                              " }}}
+                            
+                              " haya14busa/incsearch.vim {{{
+    1              0.000012   map /  <Plug>(incsearch-forward)
+    1              0.000010   map ?  <Plug>(incsearch-backward)
+    1              0.000011   map g/ <Plug>(incsearch-stay)
+    1              0.000006   let g:incsearch#auto_nohlsearch = 1
+    1              0.000011   map n  <Plug>(incsearch-nohl-n)
+    1              0.000010   map N  <Plug>(incsearch-nohl-N)
+    1              0.000010   map *  <Plug>(incsearch-nohl-*)
+    1              0.000010   map #  <Plug>(incsearch-nohl-#)
+    1              0.000010   map g* <Plug>(incsearch-nohl-g*)
+    1              0.000011   map g# <Plug>(incsearch-nohl-g#)
+                              " }}}
+                            
+                              " itchyny/lightline.vim {{{
+    1              0.000009   let g:lightline = {
+                                    \ 'colorscheme': 'wombat',
+                                    \ }
+                              " }}}
+                            
+                              " simeji/winresizer {{{
+    1              0.000004   let g:winresizer_vert_resize=2
+    1              0.000003   let g:winresizer_horiz_resize=1
+                              " }}}
+                            
+                              " goerz/jupytext.vim {{{
+                              " convert to python file
+    1              0.000004   let g:jupytext_fmt = 'py:percent'
+    1              0.000006   let g:jupytext_filetype_map = {'py': 'python'}
+                              " }}}
+    1              0.000001 endif
+                            
+                            " }}}
+                            
+                            " if there is local config, then load it {{{
+    1              0.000019 let $LOCALFILE=expand("~/.vimrc_local")
+    1              0.000009 if filereadable($LOCALFILE)
+                              source $LOCALFILE
+    1              0.000002 endif
+                            " }}}
+                            
+                            " vim: expandtab softtabstop=2 shiftwidth=2 foldmethod=marker
+
