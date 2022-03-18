@@ -97,6 +97,18 @@ set wrap " Lines longer than the width of the window will wrap
 " spell check {{{
 set spelllang=en,cjk " spell checking language
 nnoremap <space>s :<C-u>setl spell! spell?<CR>
+
+" underline the word which is not recognized by the spellchecker {{{
+function! MyHighlights() abort
+   highlight SpellBad cterm=underline
+endfunction
+
+augroup MyColors
+  autocmd!
+  autocmd ColorScheme * call MyHighlights()
+augroup END
+" }}}
+
 " }}}
 
 " <Tab> size is equal to 4 spaces {{{
