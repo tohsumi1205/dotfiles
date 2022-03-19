@@ -338,6 +338,8 @@ set undodir=$HOME/.vim/undodir
 " spell check in git commit
 AutocmdFT gitcommit setlocal spell nofoldenable
 AutocmdFT help      nnoremap <buffer> q ZZ
+AutocmdFT c         setlocal ts=4 sts=4 sw=4 noet
+AutocmdFT make      setlocal ts=4 sts=4 sw=4 noet
 "}}}
 
 " Plugin configuration {{{
