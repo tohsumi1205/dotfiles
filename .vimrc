@@ -341,8 +341,6 @@ AutocmdFT help      nnoremap <buffer> q ZZ
 "}}}
 
 " Plugin configuration {{{
-let g:mapleader=","
-
 " netrw {{{
 let g:netrw_banner = 0 " disable show banner
 let g:netrw_liststyle = 3 " show directory in tree style
