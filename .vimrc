@@ -43,6 +43,7 @@ function! PackInit() abort
     " plugins installed under ~/.vim/pack/minpac/start/ are automatically added to the 'runtimepath'.
     call minpac#add('k-tanaka/minpac', {'type': 'opt'})
 
+    call minpac#add('sjl/gundo.vim') " undo
     call minpac#add('tpope/vim-unimpaired')
     call minpac#add('junegunn/fzf')
     call minpac#add('junegunn/fzf.vim')
@@ -467,6 +468,11 @@ if !empty(system('ls ~/.vim/pack/minpac/start/'))
   " pbondoer/vim-42header {{{
   let g:hdr42mail = 'tohsumi@student.42tokyo.jp'
   let g:hdr42user = 'tohsumi'
+  " }}}
+
+  " sjl/gundo.vim {{{
+  let g:gundo_prefer_python3 = 1
+  nnoremap <leader>g :<C-u>GundoToggle<CR>
   " }}}
 
 endif
