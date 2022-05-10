@@ -1,4 +1,4 @@
 augroup MyFileformat
 	autocmd!
-	autocmd FileType * setlocal fo-=r fo-=o
+	autocmd FileType * setlocal formatoptions-=o
 augroup END
