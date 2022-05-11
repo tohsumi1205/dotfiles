@@ -5,6 +5,7 @@
 	ui = true
 [alias]
 	graph = log --graph --decorate --oneline --all
+	root = rev-parse --show-toplevel
 [core]
 	excludesfile = ~/.gitignore
 [merge]
