@@ -64,6 +64,10 @@ function! PackInit() abort
     call minpac#add('kana/vim-textobj-entire')
     call minpac#add('kana/vim-textobj-user')
 
+    " git {{
+    call minpac#add('rhysd/committia.vim')
+    call minpac#add('tpope/vim-fugitive')
+    " }}
 
     " tmux {{{
     call minpac#add('christoomey/vim-tmux-navigator')
