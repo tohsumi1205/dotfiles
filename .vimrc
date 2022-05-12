@@ -64,12 +64,6 @@ function! PackInit() abort
     call minpac#add('kana/vim-textobj-entire')
     call minpac#add('kana/vim-textobj-user')
 
-    " python {{{
-    " enable handle .ipynb file like .py file
-    call minpac#add('goerz/jupytext.vim')
-    " make vim talk to jupyter kernels
-    call minpac#add('jupyter-vim/jupyter-vim')
-    " }}}
 
     " tmux {{{
     call minpac#add('christoomey/vim-tmux-navigator')
