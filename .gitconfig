@@ -8,5 +8,6 @@
 	root = rev-parse --show-toplevel
 [core]
 	excludesfile = ~/.gitignore
+	editor = vim
 [merge]
 	tool = vimdiff
