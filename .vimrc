@@ -314,6 +314,9 @@ nnoremap - <C-x>
 " key binding {{{
 nnoremap Y y$ " consistent with D for dd, C cc
 nnoremap gV `[v`] " visually select the text that was last edited
+
+inoremap <C-g><C-l> <right>
+inoremap <C-g><C-h> <left>
 " }}}
 
 " unbind key {{{
