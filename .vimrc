@@ -69,10 +69,6 @@ function! PackInit() abort
     call minpac#add('tpope/vim-fugitive')
     " }}
 
-    " tmux {{{
-    call minpac#add('christoomey/vim-tmux-navigator')
-    " }}}
-
     " color scheme {{{
     call minpac#add('morhetz/gruvbox')
     call minpac#add('kien/rainbow_parentheses.vim')
