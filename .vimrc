@@ -63,6 +63,7 @@ function! PackInit() abort
     call minpac#add('simeji/winresizer')
     call minpac#add('kana/vim-textobj-entire')
     call minpac#add('kana/vim-textobj-user')
+    call minpac#add('cohama/lexima.vim')
 
     " git {{
     call minpac#add('rhysd/committia.vim')
