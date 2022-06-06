@@ -58,15 +58,18 @@ function! PackInit() abort
     call minpac#add('mhinz/vim-startify')
     call minpac#add('haya14busa/incsearch.vim')
     call minpac#add('easymotion/vim-easymotion')
-    call minpac#add('tpope/vim-surround')
-    call minpac#add('airblade/vim-gitgutter')
     call minpac#add('simeji/winresizer')
     call minpac#add('kana/vim-textobj-entire')
     call minpac#add('kana/vim-textobj-user')
+
+    " bracket {{
     call minpac#add('cohama/lexima.vim')
+    call minpac#add('tpope/vim-surround')
+    " }}
 
     " git {{
     call minpac#add('rhysd/committia.vim')
+    call minpac#add('airblade/vim-gitgutter')
     call minpac#add('tpope/vim-fugitive')
     " }}
 
@@ -314,6 +317,11 @@ nnoremap gV `[v`] " visually select the text that was last edited
 
 inoremap <C-g><C-l> <right>
 inoremap <C-g><C-h> <left>
+
+" recall command-line from history, whose beginning matches the current
+" command-line
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
 " }}}
 
 " unbind key {{{
