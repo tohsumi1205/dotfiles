@@ -51,7 +51,7 @@ function! PackInit() abort
     call minpac#add('tpope/vim-commentary')
     call minpac#add('tpope/vim-projectionist')
     call minpac#add('tpope/vim-dispatch')
-    call minpac#add('w0rp/ale')
+    " call minpac#add('w0rp/ale')
     call minpac#add('mhinz/vim-grepper')
     call minpac#add('janko-m/vim-test')
     call minpac#add('sgur/vim-editorconfig')
@@ -315,8 +315,17 @@ nnoremap - <C-x>
 nnoremap Y y$ " consistent with D for dd, C cc
 nnoremap gV `[v`] " visually select the text that was last edited
 
-inoremap <C-g><C-l> <right>
-inoremap <C-g><C-h> <left>
+" Emacs-like keybind
+inoremap <C-e> <END>
+vnoremap <C-e> <END>
+cnoremap <C-e> <END>
+inoremap <C-a> <HOME>
+vnoremap <C-a> <HOME>
+cnoremap <C-a> <HOME>
+inoremap <C-f> <Right>
+vnoremap <C-f> <Right>
+cnoremap <C-f> <Right>
+inoremap <C-d> <Del>
 
 " recall command-line from history, whose beginning matches the current
 " command-line
