@@ -353,7 +353,6 @@ AutocmdFT make      setlocal ts=4 sts=4 sw=4 noet
 " netrw {{{
 let g:netrw_banner = 0 " disable show banner
 let g:netrw_liststyle = 3 " show directory in tree style
-let g:netrw_winsize = 30 " size 30%
 " }}}
 
 if !empty(system('ls ~/.vim/pack/minpac/start/'))
