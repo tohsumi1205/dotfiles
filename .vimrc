@@ -473,12 +473,6 @@ if !empty(system('ls ~/.vim/pack/minpac/start/'))
   let g:winresizer_horiz_resize=1
   " }}}
 
-  " goerz/jupytext.vim {{{
-  " convert to python file
-  let g:jupytext_fmt = 'py:percent'
-  let g:jupytext_filetype_map = {'py': 'python'}
-  " }}}
-
   " pbondoer/vim-42header {{{
   let g:hdr42mail = 'tohsumi@student.42tokyo.jp'
   let g:hdr42user = 'tohsumi'
