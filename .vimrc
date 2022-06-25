@@ -137,12 +137,6 @@ Autocmd ColorScheme * call MyHighlights()
 
 " }}}
 
-" <Tab> size is equal to 4 spaces {{{
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-" }}}
-
 " show invisibles {{{
 set list
 set listchars=tab:\¦\    " set list to see tabs
@@ -325,6 +319,9 @@ cnoremap <C-a> <HOME>
 inoremap <C-f> <Right>
 vnoremap <C-f> <Right>
 cnoremap <C-f> <Right>
+inoremap <C-b> <Left>
+vnoremap <C-b> <Left>
+cnoremap <C-b> <Left>
 inoremap <C-d> <Del>
 
 " recall command-line from history, whose beginning matches the current
