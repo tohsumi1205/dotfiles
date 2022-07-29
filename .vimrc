@@ -45,7 +45,6 @@ function! PackInit() abort
 
     call minpac#add('sjl/gundo.vim') " undo
     call minpac#add('tpope/vim-unimpaired')
-    call minpac#add('junegunn/fzf')
     call minpac#add('junegunn/fzf.vim')
     call minpac#add('tpope/vim-obsession')
     call minpac#add('tpope/vim-commentary')
@@ -56,11 +55,11 @@ function! PackInit() abort
     call minpac#add('janko-m/vim-test')
     call minpac#add('sgur/vim-editorconfig')
     call minpac#add('mhinz/vim-startify')
-    call minpac#add('haya14busa/incsearch.vim')
+    call minpac#add('haya14busa/is.vim')
     call minpac#add('easymotion/vim-easymotion')
-    call minpac#add('simeji/winresizer')
     call minpac#add('kana/vim-textobj-entire')
     call minpac#add('kana/vim-textobj-user')
+    call minpac#add('kana/vim-submode')
 
     " bracket {{
     call minpac#add('cohama/lexima.vim')
@@ -216,66 +215,66 @@ Autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "norm
 
 " tab configuration {{{
 
-" Anywhere SID.
-function! s:SID_PREFIX()
-  return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
-endfunction
+" " Anywhere SID.
+" function! s:SID_PREFIX()
+"   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
+" endfunction
 
-" Set tabline.
-function! s:my_tabline()  "{{{
-  let s = ''
-  for i in range(1, tabpagenr('$'))
-    let bufnrs = tabpagebuflist(i)
-    let bufnr = bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
-    let no = i  " display 0-origin tabpagenr.
-    let mod = getbufvar(bufnr, '&modified') ? '!' : ' '
-    let title = fnamemodify(bufname(bufnr), ':t')
-    let title = '[' . title . ']'
-    let s .= '%'.i.'T'
-    let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
-    let s .= no . ':' . title
-    let s .= mod
-    let s .= '%#TabLineFill# '
-  endfor
-  let s .= '%#TabLineFill#%T%=%#TabLine#'
-  return s
-endfunction "}}}
-let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
+" " Set tabline.
+" function! s:my_tabline()  "{{{
+"   let s = ''
+"   for i in range(1, tabpagenr('$'))
+"     let bufnrs = tabpagebuflist(i)
+"     let bufnr = bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
+"     let no = i  " display 0-origin tabpagenr.
+"     let mod = getbufvar(bufnr, '&modified') ? '!' : ' '
+"     let title = fnamemodify(bufname(bufnr), ':t')
+"     let title = '[' . title . ']'
+"     let s .= '%'.i.'T'
+"     let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
+"     let s .= no . ':' . title
+"     let s .= mod
+"     let s .= '%#TabLineFill# '
+"   endfor
+"   let s .= '%#TabLineFill#%T%=%#TabLine#'
+"   return s
+" endfunction "}}}
+" let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
 
-" tabline pop up only when there are more than one tab
-set showtabline=1
+" " tabline pop up only when there are more than one tab
+" set showtabline=1
 
-" key binds related to tab {{{
-" prefix
-nnoremap    [Tag]   <Nop>
-nmap    t [Tag]
+" " key binds related to tab {{{
+" " prefix
+" nnoremap    [Tag]   <Nop>
+" nmap    t [Tag]
 
-" jump to n-th tab by t(1..9) {{{
-for n in range(1, 9)
-  execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
-endfor
-" }}}
+" " jump to n-th tab by t(1..9) {{{
+" for n in range(1, 9)
+"   execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
+" endfor
+" " }}}
 
-map <silent> [Tag]n :tablast <bar> tabnew<CR> " create a new tab on the far right
-map <silent> [Tag]x :tabclose<CR> " close tab
+" map <silent> [Tag]n :tablast <bar> tabnew<CR> " create a new tab on the far right
+" map <silent> [Tag]x :tabclose<CR> " close tab
 
-" create new tab with a current open buffer (tm command in normal mode) {{{
-nnoremap <silent> tm :<C-u>call <SID>MoveToNewTab()<CR>
-function! s:MoveToNewTab()
-  tab split
-  tabprevious
+" " create new tab with a current open buffer (tm command in normal mode) {{{
+" nnoremap <silent> tm :<C-u>call <SID>MoveToNewTab()<CR>
+" function! s:MoveToNewTab()
+"   tab split
+"   tabprevious
 
-  if winnr('$') > 1
-    close
-  elseif bufnr('$') > 1
-    buffer #
-  endif
+"   if winnr('$') > 1
+"     close
+"   elseif bufnr('$') > 1
+"     buffer #
+"   endif
 
-  tabnext
-endfunction
-" }}}
-" }}}
-" }}}
+"   tabnext
+" endfunction
+" " }}}
+" " }}}
+" " }}}
 
 " Misc configuration {{{
 
@@ -446,28 +445,10 @@ if !empty(system('ls ~/.vim/pack/minpac/start/'))
   nnoremap <silent> <leader>b :Buffers<CR>
   " }}}
 
-  " haya14busa/incsearch.vim {{{
-  map /  <Plug>(incsearch-forward)
-  map ?  <Plug>(incsearch-backward)
-  map g/ <Plug>(incsearch-stay)
-  let g:incsearch#auto_nohlsearch = 1
-  map n  <Plug>(incsearch-nohl-n)
-  map N  <Plug>(incsearch-nohl-N)
-  map *  <Plug>(incsearch-nohl-*)
-  map #  <Plug>(incsearch-nohl-#)
-  map g* <Plug>(incsearch-nohl-g*)
-  map g# <Plug>(incsearch-nohl-g#)
-  " }}}
-
   " itchyny/lightline.vim {{{
   let g:lightline = {
         \ 'colorscheme': 'wombat',
         \ }
-  " }}}
-
-  " simeji/winresizer {{{
-  let g:winresizer_vert_resize=2
-  let g:winresizer_horiz_resize=1
   " }}}
 
   " pbondoer/vim-42header {{{
@@ -497,6 +478,18 @@ if !empty(system('ls ~/.vim/pack/minpac/start/'))
       imap <buffer><C-n> <Plug>(committia-scroll-diff-down-half)
       imap <buffer><C-p> <Plug>(committia-scroll-diff-up-half)
   endfunction
+  " }}}
+
+  " kana/vim-submode {{{
+  let g:submode_keep_leaving_key = 1
+  call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
+  call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
+  call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>+')
+  call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>-')
+  call submode#map('winsize', 'n', '', '>', '<C-w>>')
+  call submode#map('winsize', 'n', '', '<', '<C-w><')
+  call submode#map('winsize', 'n', '', '+', '<C-w>+')
+  call submode#map('winsize', 'n', '', '-', '<C-w>-')
   " }}}
 
 endif
